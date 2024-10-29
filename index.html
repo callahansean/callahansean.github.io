@@ -367,6 +367,60 @@
             const menu = document.getElementById('nav-menu');
             menu.classList.toggle('show');
         }
+
+        // Smooth scrolling with centering
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    // Get the header height for offset
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    
+                    // Calculate the target position
+                    // This centers the section in the viewport while accounting for the header
+                    const targetPosition = targetSection.offsetTop - headerHeight - 
+                        (window.innerHeight - headerHeight - targetSection.offsetHeight) / 2;
+
+                    // Smooth scroll to target
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Add a subtle scale animation to the target section
+                    targetSection.style.transition = 'transform 0.3s ease-out';
+                    targetSection.style.transform = 'scale(1.01)';
+                    
+                    // Reset the scale after animation
+                    setTimeout(() => {
+                        targetSection.style.transform = 'scale(1)';
+                    }, 300);
+                }
+            });
+        });
+
+        // Add scroll-triggered animations for sections
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Apply initial styles and observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            observer.observe(section);
+        });
     </script>
 </body>
 </html>
