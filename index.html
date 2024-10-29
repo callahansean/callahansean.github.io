@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sean Callahan - Economics PhD Student</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+    <!-- Meta tags define document properties -->
+    <meta charset="UTF-8"> <!-- Specifies character encoding -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes website mobile-responsive -->
+    
+    <title>Sean Callahan - Economics PhD Student</title> <!-- Browser tab title -->
+    
+    <!-- External resources -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"> <!-- Loads the Inter font -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script> <!-- Loads icons -->
+    
+    <!-- CSS Styles -->
     <style>
+        /* CSS Variables - Define colors used throughout the site */
         :root {
-            --primary-color: #7FA891;     /* Fresh sage */
-            --primary-dark: #698C78;      /* Deep sage */
-            --accent-color: #D3E4DC;      /* Light sage */
-            --background-color: #F8FAF9;  /* Fresh white */
-            --text-color: #374D43;        /* Rich forest */
-            --text-light: #7B968A;        /* Medium sage */
-            --white: #ffffff;
+            --primary-color: #7FA891;     /* Fresh sage - Main color */
+            --primary-dark: #698C78;      /* Deep sage - Darker version */
+            --accent-color: #D3E4DC;      /* Light sage - Highlight color */
+            --background-color: #F8FAF9;  /* Fresh white - Page background */
+            --text-color: #374D43;        /* Rich forest - Main text color */
+            --text-light: #7B968A;        /* Medium sage - Secondary text */
+            --white: #ffffff;             /* Pure white */
         }
 
+        /* Reset default browser styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* Basic page styles */
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
@@ -30,52 +39,59 @@
             background-color: var(--background-color);
         }
 
+        /* Container to center content and set maximum width */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1.5rem;
         }
 
+        /* Header styles - The top navigation bar */
         header {
             background-color: var(--primary-color);
-            position: sticky;
+            position: sticky; /* Keeps header at top when scrolling */
             top: 0;
-            z-index: 1000;
-            border-radius: 0 0 1rem 1rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            z-index: 1000; /* Ensures header stays above other content */
+            border-radius: 0 0 1rem 1rem; /* Rounded bottom corners */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow */
         }
 
+        /* Header content layout */
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
-            height: 4rem; /* Set a fixed height for the header */
+            height: 4rem;
         }
 
+        /* Website title styling */
         .site-title {
             color: var(--white);
             font-size: 1.75rem;
             font-weight: 500;
             letter-spacing: 0.01em;
-            line-height: 1; /* Adjust line height to help with vertical alignment */
+            line-height: 1;
         }
 
+        /* Navigation menu container */
         nav {
             height: 100%;
             display: flex;
             align-items: center;
         }
 
+        /* Navigation menu list */
         nav ul {
             list-style: none;
             display: flex;
-            gap: 2rem;
+            gap: 2rem; /* Space between menu items */
             height: 100%;
             align-items: center;
-            margin: 0; /* Remove default margin */
+            margin: 0;
         }
 
+        /* Navigation links */
         nav a {
             color: var(--white);
             text-decoration: none;
@@ -85,15 +101,16 @@
             letter-spacing: 0.05em;
             opacity: 0.9;
             transition: opacity 0.3s ease;
-            line-height: 1; /* Adjust line height to help with vertical alignment */
-            padding: 0.5rem 0; /* Add vertical padding for better hit area */
+            line-height: 1;
+            padding: 0.5rem 0;
         }
 
+        /* Navigation link hover effect */
         nav a:hover {
             opacity: 1;
         }
 
-        /* Rest of your existing styles remain the same */
+        /* Content section styles */
         section {
             background-color: var(--white);
             border-radius: 1rem;
@@ -103,11 +120,13 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
+        /* Section hover effect - Slight lift animation */
         section:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
         }
 
+        /* Section headings */
         h2 {
             color: var(--primary-dark);
             font-size: 1.5rem;
@@ -116,12 +135,14 @@
             letter-spacing: 0.01em;
         }
 
+        /* About section layout */
         .about-content {
             display: flex;
             gap: 2.5rem;
             align-items: flex-start;
         }
 
+        /* Profile image styling */
         .headshot {
             width: 12rem;
             height: 12rem;
@@ -131,10 +152,12 @@
             border: 3px solid var(--accent-color);
         }
 
+        /* About section text container */
         .about-text {
             flex: 1;
         }
 
+        /* Button group container */
         .button-group {
             margin-top: 1.5rem;
             display: flex;
@@ -142,6 +165,7 @@
             flex-wrap: wrap;
         }
 
+        /* Basic button styling */
         .button {
             display: inline-flex;
             align-items: center;
@@ -155,26 +179,31 @@
             transition: background-color 0.3s ease;
         }
 
+        /* Button hover effect */
         .button:hover {
             background-color: var(--primary-color);
             color: var(--white);
         }
 
+        /* Primary button variant */
         .button.primary {
             background-color: var(--primary-color);
             color: var(--white);
         }
 
+        /* Primary button hover effect */
         .button.primary:hover {
             background-color: var(--primary-dark);
         }
 
+        /* Research description text */
         .research-description {
             margin-top: 0.5rem;
             color: var(--text-light);
             font-size: 0.95rem;
         }
 
+        /* List styling */
         ul {
             list-style-position: inside;
             margin-bottom: 1rem;
@@ -185,12 +214,14 @@
             margin-bottom: 0.5rem;
         }
 
+        /* Contact section grid layout */
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
         }
 
+        /* Contact item styling */
         .contact-item {
             display: flex;
             align-items: center;
@@ -201,28 +232,34 @@
             transition: background-color 0.3s ease;
         }
 
+        /* Contact item hover effect */
         .contact-item:hover {
             background-color: var(--accent-color);
         }
 
+        /* Contact icon color */
         .contact-item i {
             color: var(--primary-color);
         }
 
+        /* Mobile menu button (hidden by default) */
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            color: var(--white);
+            color: var(--primary-dark);
             cursor: pointer;
             padding: 0.5rem;
         }
 
+        /* Mobile responsive styles */
         @media (max-width: 768px) {
+            /* Show mobile menu button on small screens */
             .mobile-menu-btn {
                 display: block;
             }
 
+            /* Mobile navigation menu */
             nav ul {
                 display: none;
                 flex-direction: column;
@@ -230,21 +267,25 @@
                 padding: 1rem 0;
             }
 
+            /* Show navigation when toggled */
             nav ul.show {
                 display: flex;
             }
 
+            /* Stack header content on mobile */
             .header-content {
                 flex-direction: column;
                 align-items: flex-start;
             }
 
+            /* Stack about section content on mobile */
             .about-content {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
             }
 
+            /* Center buttons on mobile */
             .button-group {
                 justify-content: center;
             }
@@ -252,13 +293,16 @@
     </style>
 </head>
 <body>
+    <!-- Header section with navigation -->
     <header>
         <div class="container">
             <div class="header-content">
                 <h1 class="site-title">Sean Callahan - Ph.D. Student</h1>
+                <!-- Mobile menu button -->
                 <button class="mobile-menu-btn" onclick="toggleMenu()">
                     <i data-feather="menu"></i>
                 </button>
+                <!-- Navigation menu -->
                 <nav>
                     <ul id="nav-menu">
                         <li><a href="#about">About</a></li>
@@ -272,13 +316,16 @@
         </div>
     </header>
 
+    <!-- Main content container -->
     <main class="container">
+        <!-- About section -->
         <section id="about">
             <h2>About Me</h2>
             <div class="about-content">
                 <img src="headshot.jpeg" alt="Sean Callahan" class="headshot">
                 <div class="about-text">
                     <p>I am a 4th year Economics Ph.D. student at Colorado State University. I describe myself as an international macroeconomist as I am interested in how the industrial composition of economies change over time and what policies can be used to steer this change.</p>
+                    <!-- Button group for CV, Scholar, GitHub -->
                     <div class="button-group">
                         <a href="#" class="button primary">
                             <i data-feather="file-text"></i>
@@ -297,6 +344,7 @@
             </div>
         </section>
 
+        <!-- Research Interests section -->
         <section id="research">
             <h2>Research Interests</h2>
             <ul>
@@ -323,6 +371,7 @@
             </ul>
         </section>
 
+        <!-- Publications section -->
         <section id="publications">
             <h2>Working Papers and Publications</h2>
             <ul>
@@ -330,6 +379,7 @@
             </ul>
         </section>
 
+        <!-- Teaching section -->
         <section id="teaching">
             <h2>Teaching Experience</h2>
             <ul>
@@ -339,6 +389,7 @@
             </ul>
         </section>
 
+        <!-- Contact section -->
         <section id="contact">
             <h2>Contact Information</h2>
             <div class="contact-grid">
@@ -358,17 +409,18 @@
         </section>
     </main>
 
+    <!-- JavaScript for functionality -->
     <script>
-        // Initialize Feather Icons
+        // Initialize Feather Icons library
         feather.replace();
 
-        // Mobile Menu Toggle
+        // Mobile menu toggle function
         function toggleMenu() {
             const menu = document.getElementById('nav-menu');
             menu.classList.toggle('show');
         }
 
-        // Smooth scrolling with centering
+        // Smooth scrolling with centering effect
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -376,25 +428,24 @@
                 const targetSection = document.querySelector(targetId);
                 
                 if (targetSection) {
-                    // Get the header height for offset
+                    // Calculate header height for offset
                     const headerHeight = document.querySelector('header').offsetHeight;
                     
-                    // Calculate the target position
-                    // This centers the section in the viewport while accounting for the header
+                    // Center the section in viewport
                     const targetPosition = targetSection.offsetTop - headerHeight - 
                         (window.innerHeight - headerHeight - targetSection.offsetHeight) / 2;
 
-                    // Smooth scroll to target
+                    // Smooth scroll animation
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
                     });
 
-                    // Add a subtle scale animation to the target section
+                    // Add scale animation to section
                     targetSection.style.transition = 'transform 0.3s ease-out';
                     targetSection.style.transform = 'scale(1.01)';
                     
-                    // Reset the scale after animation
+                    // Reset scale after animation
                     setTimeout(() => {
                         targetSection.style.transform = 'scale(1)';
                     }, 300);
@@ -402,9 +453,10 @@
             });
         });
 
-        // Add scroll-triggered animations for sections
+        // Scroll animation observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                // Add animation when section comes into view
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
@@ -414,7 +466,7 @@
             threshold: 0.1
         });
 
-        // Apply initial styles and observe all sections
+        // Initialize sections with fade-in animation
         document.querySelectorAll('section').forEach(section => {
             section.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
             section.style.opacity = '0';
