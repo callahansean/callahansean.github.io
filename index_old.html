@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags define document properties -->
+    <meta charset="UTF-8"> <!-- Specifies character encoding -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes website mobile-responsive -->
+    
+    <title>Sean Callahan - Economics PhD Student</title> <!-- Browser tab title -->
+    
+    <!-- External resources -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"> <!-- Loads the Inter font -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script> <!-- Loads icons -->
+    
+    <!-- CSS Styles -->
+    <style>
+        /* CSS Variables - Define colors used throughout the site */
+        :root {
+            --primary-color: #7FA891;     /* Fresh sage - Main color */
+            --primary-dark: #698C78;      /* Deep sage - Darker version */
+            --accent-color: #D3E4DC;      /* Light sage - Highlight color */
+            --background-color: #F8FAF9;  /* Fresh white - Page background */
+            --text-color: #374D43;        /* Rich forest - Main text color */
+            --text-light: #7B968A;        /* Medium sage - Secondary text */
+            --white: #ffffff;             /* Pure white */
+        }
+
+        /* Reset default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Basic page styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        /* Container to center content and set maximum width */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header styles - The top navigation bar */
+        header {
+            background-color: var(--primary-color);
+            position: sticky; /* Keeps header at top when scrolling */
+            top: 0;
+            z-index: 1000; /* Ensures header stays above other content */
+            border-radius: 0 0 1rem 1rem; /* Rounded bottom corners */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+        }
+
+        /* Header content layout */
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            height: 4rem;
+        }
+
+        /* Website title styling */
+        .site-title {
+            color: var(--white);
+            font-size: 1.75rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            line-height: 1;
+        }
+
+        /* Navigation menu container */
+        nav {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Navigation menu list */
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem; /* Space between menu items */
+            height: 100%;
+            align-items: center;
+            margin: 0;
+        }
+        
+        nav ul li {
+            position: relative;
+        }
+        
+        nav ul li a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--white);
+            border-radius: 1px;
+        }
+
+        /* Navigation links */
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+            line-height: 1;
+            padding: 0.5rem 0;
+        }
+
+        /* Navigation link hover effect */
+        nav a:hover {
+            opacity: 1;
+        }
+
+        /* Content section styles */
+        section {
+            background-color: var(--white);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px,
+                        rgba(0, 0, 0, 0.06) 0px 1px 2px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        section:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+                        rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+        }
+
+        /* Section headings */
+        h2 {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.01em;
+        }
+
+        /* About section layout */
+        .about-content {
+            display: flex;
+            gap: 2.5rem;
+            align-items: flex-start;
+        }
+
+        /* Profile image styling */
+        .headshot {
+            width: 12rem;
+            height: 12rem;
+            border-radius: 0.75rem;
+            object-fit: cover;
+            object-position: center 0;
+            border: 3px solid var(--accent-color);
+        }
+
+        /* About section text container */
+        .about-text {
+            flex: 1;
+        }
+
+        /* Button group container */
+        .button-group {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Basic button styling */
+        .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Button hover effect */
+        .button:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* Primary button variant */
+        .button.primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* Primary button hover effect */
+        .button.primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Research description text */
+        .research-description {
+            margin-top: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* List styling */
+        ul {
+            list-style-position: inside;
+            margin-bottom: 1rem;
+        }
+
+        ul li {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact section grid layout */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background-color: transparent;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+            /* Remove any existing transforms or shadows */
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Simple background change on hover, nothing else */
+        .contact-item:hover {
+            background-color: var(--accent-color);
+        }
+        
+        /* Keep icon styling simple */
+        .contact-item i {
+            color: var(--primary-color);
+            min-width: 24px; /* Prevent icon from resizing */
+        }
+        
+        /* Style the text */
+        .contact-item span {
+            color: var(--text-color);
+        }
+        
+        /* Remove any existing pseudo-elements */
+        .contact-item::before,
+        .contact-item::after {
+            display: none;
+        }
+        
+        /* Ensure the contact section doesn't have extra space at bottom */
+        #contact {
+            margin-bottom: 1rem;
+            padding-bottom: 1.5rem;
+        }
+
+        /* Mobile menu button (hidden by default) */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary-dark);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            /* Show mobile menu button on small screens */
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            /* Mobile navigation menu */
+            nav ul {
+                display: none;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+
+            /* Show navigation when toggled */
+            nav ul.show {
+                display: flex;
+            }
+
+            /* Stack header content on mobile */
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            /* Stack about section content on mobile */
+            .about-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            /* Center buttons on mobile */
+            .button-group {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section with navigation -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1 class="site-title">Sean Callahan - Ph.D. Student</h1>
+                <!-- Mobile menu button -->
+                <button class="mobile-menu-btn" onclick="toggleMenu()">
+                    <i data-feather="menu"></i>
+                </button>
+                <!-- Navigation menu -->
+                <nav>
+                    <ul id="nav-menu">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#research">Research</a></li>
+                        <li><a href="#publications">Publications</a></li>
+                        <li><a href="#teaching">Teaching</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content container -->
+    <main class="container">
+        <!-- About section -->
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <img src="headshot.jpeg" alt="Sean Callahan" class="headshot">
+                <div class="about-text">
+                    <p>I am a 4th year Economics Ph.D. student at Colorado State University. I describe myself as an international macroeconomist as I am interested in how the industrial composition of economies (developed and developing) change over time and what policies can be used to steer this change.</p>
+                    <!-- Button group for CV, Scholar, GitHub -->
+                    <div class="button-group">
+                        <a href="#" class="button primary">
+                            <i data-feather="file-text"></i>
+                            CV
+                        </a>
+                        <a href="#" class="button">
+                            <i data-feather="book-open"></i>
+                            Google Scholar
+                        </a>
+                        <a href="#" class="button">
+                            <i data-feather="github"></i>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Interests section -->
+        <section id="research">
+            <h2>Research Interests</h2>
+            <ul>
+                <li>
+                    Macrodynamics of Income Distribution
+                    <div class="research-description">Studying the dynamic relationships between income distribution, economic growth, and structural change.</div>
+                </li>
+                <li>
+                    Ecological Transition Economics
+                    <div class="research-description">Analyzing economic policies and pathways for sustainable ecological transitions.</div>
+                </li>
+                <li>
+                    Industrial Policy
+                    <div class="research-description">Examining how policy interventions shape industrial composition and economic development.</div>
+                </li>
+                <li>
+                    Ecological Economics
+                    <div class="research-description">Investigating the intersection of economic systems and environmental sustainability.</div>
+                </li>
+                <li>
+                    Macroeconomic Theory
+                    <div class="research-description">Developing theoretical frameworks for understanding complex economic systems and networks.</div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Publications section -->
+        <section id="publications">
+            <h2>Working Papers and Publications</h2>
+            <ul>
+                <li>"A neo-Kaleckian two-sector model of the socio-ecological transition" (Work in progress)</li>
+            </ul>
+        </section>
+
+        <!-- Teaching section -->
+        <section id="teaching">
+            <h2>Teaching Experience</h2>
+            <ul>
+                <li>Graduate Teaching Assistant, Principles of Microeconomics, Colorado State University</li>
+                <li>Graduate Teaching Assistant, Principles of Macroeconomics, Colorado State University</li>
+                <li>Graduate Teaching Instructor, Environmental Economics, Colorado State University</li>
+            </ul>
+        </section>
+
+        <!-- Contact section -->
+        <section id="contact">
+          <h2>Contact Information</h2>
+          <div class="contact-grid">
+              <div class="contact-item">
+                  <i data-feather="mail"></i>
+                  <span>sean.callahan@colostate.edu</span>
+              </div>
+              <div class="contact-item">
+                  <i data-feather="briefcase"></i>
+                  <span>Department of Economics, Colorado State University</span>
+              </div>
+              <div class="contact-item">
+                  <i data-feather="map-pin"></i>
+                  <span>Office: Clark C309B</span>
+              </div>
+          </div>
+      </section>
+    </main>
+
+    <!-- JavaScript for functionality -->
+    <script>
+    // Initialize Feather Icons
+    feather.replace();
+
+    // Mobile Menu Toggle
+    function toggleMenu() {
+        const menu = document.getElementById('nav-menu');
+        menu.classList.toggle('show');
+    }
+
+    // More aggressive debounce with a longer wait time
+    function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+            timeout = setTimeout(() => {
+                func.apply(this, args);
+                timeout = null;
+            }, wait);
+        };
+    }
+
+    // Navigation click handler
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const targetPosition = targetSection.offsetTop - headerHeight - 
+                    (window.innerHeight - headerHeight - targetSection.offsetHeight) / 2;
+
+                // Remove active class from all links
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                // Add active class to clicked link
+                this.classList.add('active');
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+
+                targetSection.style.transition = 'transform 0.3s ease-out';
+                targetSection.style.transform = 'scale(1.01)';
+                
+                setTimeout(() => {
+                    targetSection.style.transform = '';
+                }, 300);
+            }
+        });
+    });
+
+    // Improved scroll detection
+    const updateActiveSection = debounce(() => {
+        // Don't update if we're in the middle of a smooth scroll
+        if (document.documentElement.style.scrollBehavior === 'smooth') {
+            return;
+        }
+
+        const sections = document.querySelectorAll('section');
+        const headerHeight = document.querySelector('header').offsetHeight;
+        const viewportMiddle = window.innerHeight / 2;
+        
+        // Check if we're at the bottom of the page
+        const isAtBottom = (window.innerHeight + window.pageYOffset) >= 
+            document.documentElement.offsetHeight - 100;
+
+        if (isAtBottom) {
+            // If at bottom, activate last section
+            const lastSection = sections[sections.length - 1];
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + lastSection.id);
+            });
+            return;
+        }
+
+        // Find the section that takes up the most space in the viewport
+        let maxVisibleSection = null;
+        let maxVisibleHeight = 0;
+
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const visibleHeight = Math.min(rect.bottom, window.innerHeight) - 
+                                Math.max(rect.top, 0);
+
+            if (visibleHeight > maxVisibleHeight) {
+                maxVisibleHeight = visibleHeight;
+                maxVisibleSection = section;
+            }
+        });
+
+        if (maxVisibleSection) {
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.toggle('active', 
+                    link.getAttribute('href') === '#' + maxVisibleSection.id);
+            });
+        }
+    }, 250); // Increased debounce time to 250ms
+
+    // Only add scroll listener after initial load
+    window.addEventListener('load', () => {
+        window.addEventListener('scroll', updateActiveSection);
+        updateActiveSection(); // Initial call
+    });
+</script>
+</body>
+</html>
