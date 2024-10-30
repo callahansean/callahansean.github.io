@@ -57,6 +57,63 @@
                 --md-outline: #8B938E;
             }
         }
+        
+        /* Animation keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Animation classes */
+        .animate {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .animate.fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .animate.fade-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate.scale-in {
+            animation: scaleIn 1s ease-out forwards;
+        }
 
         * {
             margin: 0;
@@ -71,6 +128,89 @@
             line-height: 1.6;
             transition: background-color 0.3s, color 0.3s;
         }
+        
+        /* Animated elements */
+        .top-app-bar {
+            background: var(--md-surface-2);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.12);
+            transition: background-color 0.3s;
+        }
+
+        .hero {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.4s;
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--md-surface-1), var(--md-surface));
+        }
+
+        .headshot {
+            opacity: 0;
+            animation: scaleIn 1s ease-out forwards;
+            animation-delay: 0.6s;
+            width: 12rem;
+            height: 12rem;
+            border-radius: 0.75rem;
+            object-fit: cover;
+            object-position: center 0;
+            border: 3px solid var(--md-secondary);
+        }
+
+        .card {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            background: var(--md-surface-2);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.12);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+
+        .research-grid .card:nth-child(1) { animation-delay: 0.8s; }
+        .research-grid .card:nth-child(2) { animation-delay: 1.0s; }
+        .research-grid .card:nth-child(3) { animation-delay: 1.2s; }
+
+        .pipeline, .teaching, .publication {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            background: var(--md-surface-2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.12);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+
+        .pipeline:nth-child(1) { animation-delay: 1.4s; }
+        .pipeline:nth-child(2) { animation-delay: 1.6s; }
+        .pipeline:nth-child(3) { animation-delay: 1.8s; }
+
+        .teaching:nth-child(1) { animation-delay: 2.0s; }
+        .teaching:nth-child(2) { animation-delay: 2.2s; }
+        .teaching:nth-child(3) { animation-delay: 2.4s; }
+
+        .contact-item {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            background: var(--md-surface-2);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.12);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-grid .contact-item:nth-child(1) { animation-delay: 2.6s; }
+        .contact-grid .contact-item:nth-child(2) { animation-delay: 2.8s; }
+        .contact-grid .contact-item:nth-child(3) { animation-delay: 3.0s; }
+
 
         /* Navigation and Header Styles */
         .top-app-bar {
@@ -178,6 +318,8 @@
         }
 
         .section-title {
+            opacity: 0;
+            transform: translateY(20px);
             color: var(--md-primary);
             font-size: 1.75rem;
             font-weight: 400;
@@ -411,7 +553,7 @@
     <section class="hero">
         <img src="headshot.jpeg" alt="Sean Callahan" class="headshot">
         <h1>Sean Callahan</h1>
-        <p>PhD Student in Economics<br>I am a 4th year Economics Ph.D. student at Colorado State University. I describe myself as an international macroeconomist as I am interested in how the industrial composition of economies (developed and developing) change over time and what policies can be used to steer this change.</p>
+        <p>4th year PhD Student in Economics<br>Colorado State University<br>I describe myself as an international macroeconomist.<br>I am interested in how the industrial composition of economies (developed and developing) change over time<br>and what policies can be used to steer this change.</p>
     </section>
 
     <main class="content">
@@ -505,15 +647,53 @@
       </section>
     </main>
 
-    <footer>
-        <p>Department of Economics<br>
-        Colorado State University</p>
-    </footer>
-
     <script>
         // Initialize Feather Icons
         feather.replace();
-        // Theme toggle functionality
+        // Intersection Observer setup
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = entry.target.dataset.animation;
+                    observer.unobserve(entry.target); // Stop observing once animated
+                }
+            });
+        }, observerOptions);
+
+        // Function to set up animations
+        function setupAnimations() {
+            // Animate navigation and hero section immediately
+            document.querySelector('.top-app-bar').style.animation = 'fadeInUp 0.5s ease-out forwards';
+            document.querySelector('.hero').style.animation = 'fadeInUp 0.8s ease-out forwards';
+            document.querySelector('.headshot').style.animation = 'scaleIn 1s ease-out forwards';
+
+            // Set up scroll-based animations for all other elements
+            const animatedElements = [
+                ...document.querySelectorAll('.section-title'),
+                ...document.querySelectorAll('.card'),
+                ...document.querySelectorAll('.pipeline'),
+                ...document.querySelectorAll('.teaching'),
+                ...document.querySelectorAll('.contact-item')
+            ];
+
+            animatedElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.dataset.animation = `fadeInUp 0.8s ease-out ${index * 0.1}s forwards`;
+                observer.observe(element);
+            });
+        }
+
+        // Initialize animations when the page loads
+        document.addEventListener('DOMContentLoaded', setupAnimations);
+
+        // Theme toggle functionality [remains the same]
         let currentTheme = 'purple';
         
         function toggleTheme() {
@@ -533,10 +713,8 @@
         if (window.matchMedia) {
             const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
             
-            // Add listener for system dark mode changes
             darkModeMediaQuery.addEventListener('change', (e) => {
                 // The system will automatically apply the correct theme variables
-                // based on the media query we defined in CSS
             });
         }
     </script>
