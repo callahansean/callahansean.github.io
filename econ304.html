@@ -331,12 +331,18 @@
         }
 
         .col-assignment {
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 1rem;   /* same as other columns */`
+            text-align: left;  /* consistent text alignment */
+            display: flex;     /* ensures links and text line up */
+            align-items: center;
         }
 
         /* Responsive schedule table */
         @media (max-width: 768px) {
+            .schedule-header > div {
+                font-weight: 600 !important;
+            }
+          
             .schedule-header, .schedule-row {
                 grid-template-columns: 1fr;
                 gap: 0.5rem;
