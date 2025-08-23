@@ -73,6 +73,11 @@
             opacity: 0.9;
             font-weight: 300;
         }
+        
+        .university {
+            text-align: center;
+            margin-top: 0; /* Remove default margin if needed */
+        }
 
         /* Navigation */
         nav {
@@ -330,6 +335,26 @@
                 padding: 1.5rem;
             }
         }
+        
+        .see-more-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .see-more-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .see-more-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+        }
 
         
     </style>
@@ -340,7 +365,8 @@
             <div class="header-content">
                 <img src="headshot.jpeg" alt="Sean Callahan" class="headshot">
                 <h1>Sean Callahan</h1>
-                <p class="subtitle">5th year Economics Ph.D. Student | Colorado State University</p>
+                <p class="subtitle">5th year Economics Ph.D. Student</p>
+                <p class="university">Colorado State University</p>
             </div>
         </div>
         <div class="floating-element floating-1"></div>
@@ -425,25 +451,25 @@
             
             <div class="courses-entry">
                 <h3>ECON 304: Intermediate Macroeconomics</h3>
-                <p><strong>Graduate courses Instructor</strong> | FA 2025</p>
+                <p><strong>Graduate Teaching Instructor</strong> | FA 2025</p>
                 <p>A macroeconomics course utilizing New Keynesian theory to explain economic fluctuations, inflation, and growth.</p>
             </div>
             
             <div class="courses-entry">
                 <h3>ECON 240: Issues in Environmental Economics</h3>
-                <p><strong>Graduate courses Instructor</strong> | 2024-2025</p>
+                <p><strong>Graduate Teaching Instructor</strong> | 2024-2025</p>
                 <p>Lead instructor responsible for course design, lectures, and assessment for undergraduate environmental economics course.</p>
             </div>
             
             <div class="courses-entry">
                 <h3>ECON 204: Principles of Macroeconomics</h3>
-                <p><strong>Graduate courses Assistant</strong> | 2023-2024</p>
+                <p><strong>Graduate Teaching Assistant</strong> | 2023-2024</p>
                 <p>Assisted with instruction, led recitation sections, and provided tutoring for introductory macroeconomics students.</p>
             </div>
             
             <div class="courses-entry">
                 <h3>ECON 202: Principles of Microeconomics</h3>
-                <p><strong>Graduate courses Assistant</strong> | 2022-2023</p>
+                <p><strong>Graduate Teaching Assistant</strong> | 2022-2023</p>
                 <p>Supported course instruction and provided academic support for undergraduate microeconomics students.</p>
             </div>
             
@@ -451,6 +477,14 @@
             <p><strong>Statistical Software:</strong> R (primary), Stata, Python<br>
             <strong>Research Methods:</strong> Econometric analysis, Network analysis, Panel data methods, Input-output analysis<br>
             <strong>Specializations:</strong> Industrial policy analysis, Structural change modeling, Development economics</p>
+            
+            <div class="see-more-container">
+            <a href="courses-details.html" class="see-more-btn">
+            <h4>View All Courses</h4>
+            <p>See detailed syllabi, assignments, and student feedback</p>
+            </a>
+            </div>
+
         </section>
 
         <section id="contact" class="section">
@@ -500,6 +534,19 @@
                 const speed = 0.1 + (index * 0.02); // Gentle parallax speeds
                 element.style.transform = `translateY(${scrolled * speed}px)`;
             });
+        });
+        
+        // Course entries become clickable
+        document.querySelectorAll('.courses-entry').forEach((entry, index) => {
+            if (index === 0 || index === 1) {  // Only first two entries (ECON 304 and ECON 240)
+            entry.addEventListener('click', function() {
+                const coursePages = ['econ304.html', 'econ240.html'];
+                window.location.href = coursePages[index];
+            });
+            
+            // Add cursor pointer to indicate clickability
+            entry.style.cursor = 'pointer';
+            }
         });
     </script>
 </body>
