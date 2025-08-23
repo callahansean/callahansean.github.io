@@ -331,10 +331,14 @@
         }
 
         .col-assignment {
-            font-size: 1rem;   /* same as other columns */`
-            text-align: left;  /* consistent text alignment */
-            display: flex;     /* ensures links and text line up */
-            align-items: center;
+            font-size: 1rem;
+            text-align: left;
+            display: flex;
+            flex-direction: column; /* allows wrapping items to stack neatly */
+            align-items: flex-start;
+            gap: 0.25rem; /* small space between wrapped lines or multiple items */
+            line-height: 1.4; /* improves readability */
+            word-break: break-word; /* prevents long URLs from overflowing */
         }
 
         /* Responsive schedule table */
