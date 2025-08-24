@@ -553,7 +553,7 @@
                     <div class="col-date" data-label="Date">9/8/2025</div>
                     <div class="col-topic" data-label="Topics">The IS-LM Model</div>
                     <div class="col-reading" data-label="Readings">5, R2</div>
-                    <div class="col-assignment" data-label="Assignments">PS1</div>
+                    <div class="col-assignment" data-label="Assignments"><a href="Problem_Set_1.html">PS1</a></div>
                 </div>
 
                 <div class="schedule-row">
@@ -844,6 +844,18 @@
                         }
                     }
                 });
+            });
+            // Course entries become clickable
+            document.querySelectorAll('.assignment-item').forEach((entry, index) => {
+                if (index === 0) {  // First entry: PS1
+                entry.addEventListener('click', function() {
+                    const coursePages = ['Problem_Set_1.html'];
+                    window.location.href = coursePages[index];
+                });
+                
+                // Add cursor pointer to indicate clickability
+                entry.style.cursor = 'pointer';
+                }
             });
         });
     </script>
