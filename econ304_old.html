@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECON 304 - Sean Callahan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f0f4ff 0%, #faf0ff 50%, #fff8f0 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        .back-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-left: auto;
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background: #495057;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .nav-toggle.active .hamburger:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .nav-toggle.active .hamburger:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active .hamburger:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #495057;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        nav a:hover {
+            background: linear-gradient(135deg, #fda085 0%, #f093fb 100%);
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 15px rgba(253, 160, 133, 0.3);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #fda085 0%, #f093fb 100%);
+        }
+
+        .section h2 {
+            color: #495057;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+
+        .section h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .course-info {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .schedule-week {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-week:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .week-number {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .assignment-item {
+            background: #fff3cd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #ffc107;
+        }
+
+        .due-date {
+            color: #856404;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .resource-item {
+            background: #d1ecf1;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #17a2b8;
+        }
+
+        .schedule-table {
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+
+        .schedule-header {
+            display: grid;
+            grid-template-columns: 80px 120px 1fr 120px 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        .organization-section {
+            background: linear-gradient(135deg, #fda085 0%, #f093fb 100%);
+            color: white;
+            padding: 0.75rem 1rem;
+            margin: 0;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .organization-title {
+            margin: 0;
+            padding: 0;
+        }
+
+        .schedule-row {
+            display: grid;
+            grid-template-columns: 80px 120px 1fr 120px 150px;
+            padding: 1rem;
+            gap: 1rem;
+            border-bottom: 1px solid #e9ecef;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-row:hover {
+            background: #f8f9fa;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .schedule-row:last-child {
+            border-bottom: none;
+        }
+
+        .organization-header {
+            background: linear-gradient(135deg, #fda085 0%, #f093fb 100%) !important;
+            color: white;
+            font-weight: 600;
+        }
+
+        .organization-header:hover {
+            background: linear-gradient(135deg, #fd9570 0%, #ed7ee6 100%) !important;
+        }
+
+        .holiday {
+            background: #fff3cd !important;
+            color: #856404;
+        }
+
+        .holiday:hover {
+            background: #ffeaa7 !important;
+        }
+
+        .final-exam {
+            background: #d4edda !important;
+            color: #155724;
+            font-weight: 600;
+        }
+
+        .final-exam:hover {
+            background: #c3e6cb !important;
+        }
+
+        .col-week {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .col-date {
+            font-size: 0.9rem;
+        }
+
+        .col-assignment {
+            font-size: 1rem;
+            text-align: left;
+            display: flex;
+            flex-direction: column; /* allows wrapping items to stack neatly */
+            align-items: flex-start;
+            gap: 0.25rem; /* small space between wrapped lines or multiple items */
+            line-height: 1.4; /* improves readability */
+            word-break: break-word; /* prevents long URLs from overflowing */
+        }
+
+        /* Responsive schedule table */
+        @media (max-width: 768px) {
+            .schedule-header > div {
+                font-weight: 600 !important;
+            }
+          
+            .schedule-header, .schedule-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .schedule-header > div, .schedule-row > div {
+                padding: 0.25rem 0;
+            }
+            
+            .schedule-header > div:before, .schedule-row > div:before {
+                content: attr(data-label) ": ";
+                font-weight: bold;
+                display: inline-block;
+                width: 100px;
+            }
+            
+            .schedule-header {
+                display: none;
+            }
+
+            .organization-section {
+                text-align: left;
+                font-size: 1rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: #495057;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            nav .container {
+                justify-content: space-between;
+            }
+            
+            .nav-toggle {
+                display: flex;
+                z-index: 101;
+            }
+            
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(15px);
+                width: 100%;
+                text-align: center;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                border-top: 1px solid rgba(0,0,0,0.1);
+                padding: 2rem 0;
+                gap: 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-menu li {
+                margin: 1rem 0;
+            }
+
+            nav a:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+        }
+        
+        .schedule-table a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .schedule-table a:hover {
+            color: #5a6fd8;
+            border-bottom: 1px solid #667eea;
+            transform: translateY(-1px);
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-link">← Back to Main Page</a>
+                <h1>ECON 304</h1>
+                <p class="subtitle">Intermediate Macroeconomics<br>Fall 2025</p>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-toggle">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#syllabus">Syllabus</a></li>
+                <li><a href="#assignments">Assignments</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#policies">Policies</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="overview" class="section">
+            <h2>Course Overview</h2>
+            
+            <div class="course-info">
+                <h3>Course Details</h3>
+                <p><strong>Instructor:</strong> Sean Callahan</p>
+                <p><strong>Email:</strong> sean.callahan@colostate.edu</p>
+                <p><strong>Office:</strong> Clark C309B</p>
+                <p><strong>Office Hours:</strong> Wednesdays and Fridays from 12:00-2:00 PM and 12:00-1:00 PM, or by appointment</p>
+                <p><strong>Class Time:</strong><br>
+                Section 001: MWF 11:00-11:50 AM<br>
+                Section 004: MWF 10:00-10:50 AM</p>
+                <p><strong>Location:</strong><br>
+                Section 001: ANAZO Room 112E<br>
+                Section 004: MICRO Room 108A</p>
+            </div>
+
+            <h3>Course Description</h3>
+            <p>This course provides a comprehensive introduction to macroeconomic theory and policy analysis using New Keynesian frameworks. Students will develop analytical skills to understand economic fluctuations, inflation dynamics, and the role of monetary and fiscal policy in stabilizing the economy.</p>
+            
+            <h3>Learning Objectives</h3>
+            <p>By the end of this course, students will be able to:</p>
+            <ul style="margin-left: 2rem; margin-top: 1rem;">
+                <li>Analyze short-run and long-run economic fluctuations using IS-LM-PC models</li>
+                <li>Evaluate the effectiveness of monetary and fiscal policy interventions</li>
+                <li>Understand the microfoundations of New Keynesian macroeconomic theory</li>
+                <li>Apply macroeconomic models to real-world economic policy debates</li>
+                <li>Critically assess macroeconomic data and forecasting methods</li>
+            </ul>
+
+            <h3>Prerequisites</h3>
+            <p>ECON 204 (Principles of Macroeconomics) and MATH 155 (Calculus) or equivalent.</p>
+        </section>
+
+        <section id="syllabus" class="section">
+            <h2>Course Schedule</h2>
+            
+            <div class="schedule-table">
+                <div class="schedule-header">
+                    <div class="col-week">Week</div>
+                    <div class="col-date">Date</div>
+                    <div class="col-topic">Topics</div>
+                    <div class="col-reading">Readings</div>
+                    <div class="col-assignment">Assignments</div>
+                </div>
+
+                <div class="organization-section">
+                    <div class="organization-title">Short-run</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">1</div>
+                    <div class="col-date" data-label="Date">8/25/2025</div>
+                    <div class="col-topic" data-label="Topics">Math Review & The Goods Market</div>
+                    <div class="col-reading" data-label="Readings">1-3, R1; <a href="https://eng.mgwk.de/kapitel1#nominal-vs.-real-variables-and-the-price-level">MGWK: 1.6</a></div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">2</div>
+                    <div class="col-date" data-label="Date">9/1/2025</div>
+                    <div class="col-topic" data-label="Topics">Financial Markets</div>
+                    <div class="col-reading" data-label="Readings">4</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">3</div>
+                    <div class="col-date" data-label="Date">9/8/2025</div>
+                    <div class="col-topic" data-label="Topics">The IS-LM Model</div>
+                    <div class="col-reading" data-label="Readings">5, R2</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">4</div>
+                    <div class="col-date" data-label="Date">9/15/2025</div>
+                    <div class="col-topic" data-label="Topics">The IS-LM Model Extended</div>
+                    <div class="col-reading" data-label="Readings">6, R3</div>
+                    <div class="col-assignment" data-label="Assignments"><a href="Problem_Set_1.html">PS1</a>, Exam 1; <a href="https://www.youtube.com/watch?v=yL_PQ81vf74">GFC Documentary</a></div>
+                </div>
+
+                <div class="organization-section">
+                    <div class="organization-title">Medium-run</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">5</div>
+                    <div class="col-date" data-label="Date">9/22/2025</div>
+                    <div class="col-topic" data-label="Topics">The Labor Market</div>
+                    <div class="col-reading" data-label="Readings">7; <a href="https://eng.mgwk.de/kapitel8">MGWK: 8, 9</a></div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">6</div>
+                    <div class="col-date" data-label="Date">9/29/2025</div>
+                    <div class="col-topic" data-label="Topics">The Phillips Curve, the Natural Rate of Unemployment, and Inflation</div>
+                    <div class="col-reading" data-label="Readings">8, R4</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">7</div>
+                    <div class="col-date" data-label="Date">10/6/2025</div>
+                    <div class="col-topic" data-label="Topics">The IS-LM-PC Model</div>
+                    <div class="col-reading" data-label="Readings">9; <a href="https://eng.mgwk.de/kapitel11">MGWK: 11</a></div>
+                    <div class="col-assignment" data-label="Assignments"><a href="PS2.html">PS2</a></div>
+                </div>
+
+                <div class="organization-section">
+                    <div class="organization-title">Long-run</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">8</div>
+                    <div class="col-date" data-label="Date">10/13/2025</div>
+                    <div class="col-topic" data-label="Topics">The Facts of Growth</div>
+                    <div class="col-reading" data-label="Readings">10</div>
+                    <div class="col-assignment" data-label="Assignments">Exam 2</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">9</div>
+                    <div class="col-date" data-label="Date">10/20/2025</div>
+                    <div class="col-topic" data-label="Topics">Saving, Capital Accumulation, and Output</div>
+                    <div class="col-reading" data-label="Readings">11</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">10</div>
+                    <div class="col-date" data-label="Date">10/27/2025</div>
+                    <div class="col-topic" data-label="Topics">Technological Progress and Growth</div>
+                    <div class="col-reading" data-label="Readings">12</div>
+                    <div class="col-assignment" data-label="Assignments"></div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">11</div>
+                    <div class="col-date" data-label="Date">11/3/2025</div>
+                    <div class="col-topic" data-label="Topics">The Challenges of Growth</div>
+                    <div class="col-reading" data-label="Readings">13</div>
+                    <div class="col-assignment" data-label="Assignments"><a href="PS3.html">PS3</a>, Exam 3</div>
+                </div>
+
+                <div class="organization-section">
+                    <div class="organization-title">Extension: Open Economy</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">12</div>
+                    <div class="col-date" data-label="Date">11/10/2025</div>
+                    <div class="col-topic" data-label="Topics">Openness in Goods and Financial Markets</div>
+                    <div class="col-reading" data-label="Readings">17</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">13</div>
+                    <div class="col-date" data-label="Date">11/17/2025</div>
+                    <div class="col-topic" data-label="Topics">The Goods Market in an Open Economy</div>
+                    <div class="col-reading" data-label="Readings">18</div>
+                    <div class="col-assignment" data-label="Assignments"><a href="Extra_Credit_Assignment.html">Extra Credit</a></div>
+                </div>
+
+                <div class="schedule-row holiday">
+                    <div class="col-week" data-label="Week">14</div>
+                    <div class="col-date" data-label="Date">11/24/2025</div>
+                    <div class="col-topic" data-label="Topics"><em>Thanksgiving Break</em></div>
+                    <div class="col-reading" data-label="Readings">—</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">15</div>
+                    <div class="col-date" data-label="Date">12/1/2025</div>
+                    <div class="col-topic" data-label="Topics">Output, the Interest Rate, and the Exchange Rate</div>
+                    <div class="col-reading" data-label="Readings">19</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">16</div>
+                    <div class="col-date" data-label="Date">12/8/2025</div>
+                    <div class="col-topic" data-label="Topics"><strong>Back to Policy:</strong> Fiscal Policy & Monetary Policy</div>
+                    <div class="col-reading" data-label="Readings">22-23</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row final-exam">
+                    <div class="col-week" data-label="Week">—</div>
+                    <div class="col-date" data-label="Date">12/15/2025</div>
+                    <div class="col-topic" data-label="Topics"><strong>FINAL EXAM WEEK</strong></div>
+                    <div class="col-reading" data-label="Readings">—</div>
+                    <div class="col-assignment" data-label="Assignments">Final Exam</div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 1.5rem; font-style: italic; color: #6c757d; text-align: center;">
+                Schedule is subject to change. Please check regularly for updates.
+            </p>
+        </section>
+
+        <section id="assignments" class="section">
+            <h2>Assignments & Grading</h2>
+            
+            <h3>Grading Breakdown</h3>
+            <div class="course-info">
+                <p><strong>Problem Sets (15%):</strong> 5 assignments, lowest score dropped</p>
+                <p><strong>Exams (42%):</strong> 3 exams, each worth 14% of final grade</p>
+                <p><strong>Final Exam (14%):</strong> Cumulative, December 15, 2025</p>
+                <p><strong>Quizzes (9%):</strong> 3 pop quizzes, subject is previous week's material</p>
+                <p><strong>Group Project (10%):</strong> Case-study to analyze and report</p>
+                <p><strong>Participation (10%):</strong> In-class activities and participation in discussion</p>
+            </div>
+
+            <div class="assignment-item">
+                <h4>Problem Set 1: IS-LM Analysis</h4>
+                <p>Graphical and mathematical analysis of goods and financial markets equilibrium.</p>
+                <div class="due-date">Due: September 15, 2025</div>
+            </div>
+
+            <div class="assignment-item">
+                <h4>Problem Set 2: Phillips Curve & Inflation</h4>
+                <p>Labor market dynamics and the relationship between unemployment and inflation.</p>
+                <div class="due-date">Due: October 6, 2025</div>
+            </div>
+
+            <div class="assignment-item">
+                <h4>Problem Set 3: Growth Theory</h4>
+                <p>Solow model applications and convergence analysis.</p>
+                <div class="due-date">Due: October 24, 2025</div>
+            </div>
+
+            <div class="assignment-item">
+                <h4>Problem Set 4: Technological Progress and Growth</h4>
+                <p>Technological change in the Solow model.</p>
+                <div class="due-date">Due: October 31, 2025</div>
+            </div>
+
+            <div class="assignment-item">
+                <h4>Problem Set 5: Open Economy Analysis</h4>
+                <p>IS-LM extended to the open economy.</p>
+                <div class="due-date">Due: November 21, 2025</div>
+            </div>
+
+        </section>
+
+        <section id="resources" class="section">
+            <h2>Resources</h2>
+            
+            <h3>Required Textbook</h3>
+            <div class="resource-item">
+                <h4>Blanchard, Olivier. "Macroeconomics" (9th Edition)</h4>
+                <p>Available at the CSU Bookstore and online. Previous editions may have different page numbers and chapter organization.</p>
+            </div>
+
+            <h3>Additional Readings</h3>
+            <div class="resource-item">
+                <h4>Canvas Reading Assignments (R1, R2, R3, R4...)</h4>
+                <p>Supplementary readings referenced in the schedule will be posted on Canvas. These include journal articles, policy papers, and additional theoretical materials that complement the textbook chapters.</p>
+            </div>
+
+            <h3>Supplementary Resources</h3>
+            <div class="resource-item">
+                <h4>Federal Reserve Economic Data (FRED)</h4>
+                <p>Essential source for macroeconomic data and visualizations.<br>
+                <a href="https://fred.stlouisfed.org" style="color: #667eea;">https://fred.stlouisfed.org</a></p>
+            </div>
+
+            <div class="resource-item">
+                <h4>Course Canvas Page</h4>
+                <p>All assignments, slides, additional readings, and announcements will be posted on Canvas. Check regularly for updates and uploaded materials.</p>
+            </div>
+
+            <div class="resource-item">
+                <h4>Office Hours & Study Groups</h4>
+                <p>Take advantage of office hours for clarification on concepts. Study groups are highly encouraged for problem sets.</p>
+            </div>
+
+            <h3>Helpful Websites</h3>
+            <p style="margin-top: 1rem;">
+                • Congressional Budget Office (CBO)<br>
+                • Bureau of Economic Analysis (BEA)<br>
+                • Federal Reserve Board of Governors<br>
+                • International Monetary Fund (IMF) Data
+            </p>
+        </section>
+
+        <section id="policies" class="section">
+            <h2>Course Policies</h2>
+            
+            <h3>Attendance Policy</h3>
+            <p>Regular attendance is expected and contributes to your participation grade. If you must miss class due to illness or emergency, please email me in advance when possible. Make-up quizzes will only be offered for documented absences.</p>
+
+            <h3>Late Work Policy</h3>
+            <p>Problem sets submitted late will receive a 10% deduction per day late. Assignments more than one week late will not be accepted unless prior arrangements have been made. The lowest problem set score will be dropped to account for unexpected circumstances.</p>
+
+            <h3>Academic Integrity</h3>
+            <p>Collaboration on problem sets is encouraged, but each student must submit their own work. Copying solutions from other students or online sources is not permitted. All exam work must be completed independently.</p>
+
+            <h3>Accommodations</h3>
+            <p>Students who require accommodations should contact Student Disability Services and provide documentation as early as possible in the semester. I will work with you to ensure you have equal access to course materials and assessments.</p>
+
+            <h3>Communication</h3>
+            <p>The best way to reach me is via email. I typically respond within 24 hours during weekdays. For urgent matters or complex questions, please come to office hours or schedule an appointment.</p>
+
+            <h3>Grade Disputes</h3>
+            <p>If you have concerns about a grade, please wait 24 hours after receiving feedback, then schedule a meeting during office hours. Come prepared to explain your reasoning in writing.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sean Callahan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile hamburger menu toggle
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    navMenu.classList.toggle('active');
+                    navToggle.classList.toggle('active');
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                        navMenu.classList.remove('active');
+                        navToggle.classList.remove('active');
+                    }
+                });
+            }
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Close mobile menu after clicking a link
+                        if (navMenu && navToggle) {
+                            navMenu.classList.remove('active');
+                            navToggle.classList.remove('active');
+                        }
+                    }
+                });
+            });
+            // Course entries become clickable
+            document.querySelectorAll('.assignment-item').forEach((entry, index) => {
+                if (index === 0) {  // First entry: PS1
+                entry.addEventListener('click', function() {
+                    const coursePages = ['Problem_Set_1.html'];
+                    window.location.href = coursePages[index];
+                });
+                
+                // Add cursor pointer to indicate clickability
+                entry.style.cursor = 'pointer';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
