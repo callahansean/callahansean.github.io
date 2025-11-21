@@ -697,6 +697,16 @@
                 nav.style.padding = '2rem';
             }
         });
+
+        // Make course cards clickable
+        const courseCards = document.querySelectorAll('.course-card');
+        if (courseCards.length > 0) {
+            // First card - ECON 304
+            courseCards[0].style.cursor = 'pointer';
+            courseCards[0].addEventListener('click', function() {
+                window.location.href = 'econ304-redesigned.html';
+            });
+        }
     </script>
 </body>
 </html>
