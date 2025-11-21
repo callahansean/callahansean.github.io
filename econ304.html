@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECON 304 | Sean Callahan</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
         
@@ -503,10 +504,6 @@
                 grid-template-columns: 1fr;
             }
 
-            nav {
-                position: relative;
-            }
-
             .nav-container {
                 flex-direction: column;
                 gap: 0;
@@ -553,7 +550,7 @@
             <div class="quick-info">
                 <div class="info-box">
                     <h4>Instructor</h4>
-                    <p>Sean Callahan<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="700315111e5e13111c1c1118111e30131f1c1f03041104155e151405">[email&#160;protected]</a></p>
+                    <p>Sean Callahan<br>sean.callahan@colostate.edu</p>
                 </div>
                 <div class="info-box">
                     <h4>Semester</h4>
@@ -922,7 +919,7 @@
         <p>&copy; 2025 Sean Callahan • ECON 304 • Colorado State University</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -936,3 +933,11 @@
         // Add clickability to first assignment card
         const firstAssignment = document.querySelector('.assignment-card');
         if (firstAssignment) {
+            firstAssignment.style.cursor = 'pointer';
+            firstAssignment.addEventListener('click', function() {
+                window.location.href = 'Problem_Set_1.html';
+            });
+        }
+    </script>
+</body>
+</html>
