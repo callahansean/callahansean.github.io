@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sean Callahan | Economics PhD</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a2540;
+            --secondary: #e07a5f;
+            --accent: #3d5a80;
+            --light: #f4f1de;
+            --dark: #1a1a1a;
+            --text: #2d3748;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: #fafafa;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--primary);
+            color: white;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: var(--accent);
+            transform: rotate(-12deg);
+            opacity: 0.1;
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 6rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-top: 2rem;
+            opacity: 0.9;
+            max-width: 500px;
+        }
+
+        .headshot-container {
+            position: relative;
+        }
+
+        .headshot {
+            width: 400px;
+            height: 400px;
+            border-radius: 0;
+            object-fit: cover;
+            object-position: center 20%;
+            box-shadow: 30px 30px 0 var(--secondary);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Quick Links */
+        .quick-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .quick-links a {
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            color: white;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .quick-links a:first-child {
+            background: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .quick-links a:hover {
+            transform: translateX(5px);
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 6rem 6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+        }
+
+        /* Research Section */
+        .research-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .research-main h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .research-main p {
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .research-sidebar {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .research-sidebar h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .research-sidebar ul {
+            list-style: none;
+        }
+
+        .research-sidebar li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .research-sidebar li:last-child {
+            border-bottom: none;
+        }
+
+        /* Papers Section */
+        #papers {
+            background: var(--light);
+        }
+
+        .papers-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .paper-card {
+            background: white;
+            padding: 2rem;
+            border-left: 5px solid var(--secondary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .paper-card:hover {
+            transform: translateX(10px);
+            box-shadow: -10px 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .paper-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .paper-author {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .paper-year {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Teaching Section */
+        .teaching-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: white;
+            border: 2px solid var(--primary);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+            z-index: 0;
+        }
+
+        .course-card:hover::before {
+            width: 100%;
+        }
+
+        .course-card:hover {
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .course-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .course-number {
+            font-size: 3rem;
+            font-family: 'Playfair Display', serif;
+            opacity: 0.1;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-weight: 700;
+        }
+
+        .course-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-role {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Skills Section */
+        .skills {
+            background: var(--primary);
+            color: white;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .skill-category h4 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 0.5rem 0;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-box {
+            padding: 2rem;
+            border: 2px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .contact-box:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        .contact-box h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-box p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-left {
+                padding: 3rem 2rem;
+            }
+
+            .hero-right {
+                padding: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .headshot {
+                width: 300px;
+                height: 300px;
+            }
+
+            section {
+                padding: 4rem 2rem;
+            }
+
+            .research-layout,
+            .teaching-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#research">Research</a>
+        <a href="#papers">Papers</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-left">
+            <div class="hero-subtitle">Economics PhD Candidate</div>
+            <h1>Sean<br>Callahan</h1>
+            <p class="hero-description">
+                Macroeconomist studying regional development, structural transformation, 
+                and how policy shapes economic change. Currently researching spatial 
+                Keynesian economics and demand spillovers at Colorado State University.
+            </p>
+            <div class="quick-links">
+                <a href="#papers">View Research</a>
+                <a href="cv.pdf">Download CV</a>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="headshot-container">
+                <img src="headshot.jpeg" alt="Sean Callahan" class="headshot">
+            </div>
+        </div>
+        <div class="scroll-indicator">Scroll to explore ↓</div>
+    </div>
+
+    <section id="research">
+        <h2 class="section-title">Research Interests</h2>
+        <div class="research-layout">
+            <div class="research-main">
+                <h3>Spatial Keynesian Economics</h3>
+                <p>
+                    My primary research develops a spatial Keynesian framework examining how 
+                    fiscal policy effects and demand spillovers propagate across regions. 
+                    Using European NUTS2 regions during the Global Financial Crisis and Euro 
+                    debt crisis, I explore how public sector shocks create geographic ripple 
+                    effects through production networks and income distribution channels.
+                </p>
+
+                <h3>Structural Transformation & Development</h3>
+                <p>
+                    I examine how economies' industrial composition evolves and what role 
+                    policy plays in steering this change. My work bridges theoretical frameworks 
+                    with empirical analysis to understand production linkages, institutional 
+                    capacity, and the mechanisms of economic development in both advanced and 
+                    emerging economies.
+                </p>
+
+                <h3>Green Transition Macroeconomics</h3>
+                <p>
+                    Through demand-driven models and simulations, I explore how economies can 
+                    navigate the energy transition while maintaining employment and growth. 
+                    This research investigates the macroeconomic dynamics of capacity investment 
+                    and the distributional implications of climate policy.
+                </p>
+            </div>
+            <div class="research-sidebar">
+                <h4>Methods & Tools</h4>
+                <ul>
+                    <li>Spatial Econometrics</li>
+                    <li>Panel Data Methods</li>
+                    <li>Input-Output Analysis</li>
+                    <li>Network Analysis</li>
+                    <li>Agent-Based Modeling</li>
+                </ul>
+
+                <h4 style="margin-top: 2rem;">Software</h4>
+                <ul>
+                    <li>R (Primary)</li>
+                    <li>Stata</li>
+                    <li>Python</li>
+                    <li>QGIS</li>
+                </ul>
+
+                <h4 style="margin-top: 2rem;">Approaches</h4>
+                <ul>
+                    <li>Post-Keynesian</li>
+                    <li>Structuralist</li>
+                    <li>Institutional</li>
+                    <li>Spatial Economics</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="papers">
+        <h2 class="section-title">Working Papers</h2>
+        <div class="papers-grid">
+            <div class="paper-card">
+                <div class="paper-title">Spatial Keynesianism: Demand Spillovers and Public Finance</div>
+                <div class="paper-author">Sean Callahan</div>
+                <div class="paper-year">Job Market Paper • 2025</div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-title">A Theoretical Framework for Spatial Keynesianism</div>
+                <div class="paper-author">Sean Callahan</div>
+                <div class="paper-year">Working Paper • 2025</div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-title">The Collapse of the Social Partnership and Structural Change in the Celtic Tiger</div>
+                <div class="paper-author">Sean Callahan</div>
+                <div class="paper-year">2024</div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-title">Demand-driven Model of Energy Capacity Investment</div>
+                <div class="paper-author">Sean Callahan</div>
+                <div class="paper-year">2024</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="teaching">
+        <h2 class="section-title">Teaching Experience</h2>
+        <div class="teaching-grid">
+            <div class="course-card">
+                <div class="course-number">304</div>
+                <div class="course-title">Intermediate Macroeconomics</div>
+                <div class="course-role">Instructor of Record • Fall 2025</div>
+                <p>New Keynesian theory, economic fluctuations, inflation, and growth policy.</p>
+            </div>
+
+            <div class="course-card">
+                <div class="course-number">240</div>
+                <div class="course-title">Environmental Economics</div>
+                <div class="course-role">Instructor of Record • 2024-2025</div>
+                <p>Market failures, policy instruments, and sustainability economics.</p>
+            </div>
+
+            <div class="course-card">
+                <div class="course-number">204</div>
+                <div class="course-title">Principles of Macroeconomics</div>
+                <div class="course-role">Teaching Assistant • 2023-2024</div>
+                <p>Introductory macroeconomics with recitation sections and tutoring.</p>
+            </div>
+
+            <div class="course-card">
+                <div class="course-number">202</div>
+                <div class="course-title">Principles of Microeconomics</div>
+                <div class="course-role">Teaching Assistant • 2022-2023</div>
+                <p>Foundational microeconomic theory and applications.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills">
+        <div class="skill-category">
+            <h4>Econometric Methods</h4>
+            <ul>
+                <li>Spatial Panel Models</li>
+                <li>Dynamic Panel Data</li>
+                <li>Instrumental Variables</li>
+                <li>Difference-in-Differences</li>
+                <li>Network Econometrics</li>
+            </ul>
+        </div>
+        <div class="skill-category">
+            <h4>Theoretical Frameworks</h4>
+            <ul>
+                <li>Post-Keynesian Theory</li>
+                <li>Structuralist Economics</li>
+                <li>Growth Theory</li>
+                <li>Economic Geography</li>
+                <li>Development Economics</li>
+            </ul>
+        </div>
+        <div class="skill-category">
+            <h4>Data & Analysis</h4>
+            <ul>
+                <li>Regional Economic Data</li>
+                <li>Input-Output Tables</li>
+                <li>Trade Networks</li>
+                <li>Penn World Tables</li>
+                <li>Eurostat Regional Data</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title" style="color: white;">Get In Touch</h2>
+        <div class="contact-grid">
+            <div class="contact-box">
+                <h4>Email</h4>
+                <p>sean.callahan@colostate.edu</p>
+            </div>
+            <div class="contact-box">
+                <h4>Office</h4>
+                <p>Clark C309B<br>
+                Department of Economics<br>
+                Colorado State University</p>
+            </div>
+            <div class="contact-box">
+                <h4>Location</h4>
+                <p>Fort Collins, Colorado<br>
+                United States</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Sean Callahan • Economics PhD Candidate • Colorado State University</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Change nav color on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > window.innerHeight - 100) {
+                nav.style.background = 'var(--primary)';
+                nav.style.padding = '1rem 2rem';
+            } else {
+                nav.style.background = 'transparent';
+                nav.style.padding = '2rem';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECON 304 | Sean Callahan</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a2540;
+            --secondary: #e07a5f;
+            --accent: #3d5a80;
+            --light: #f4f1de;
+            --dark: #1a1a1a;
+            --text: #2d3748;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: #fafafa;
+            overflow-x: hidden;
+        }
+
+        /* Course Hero */
+        .course-hero {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 60%;
+            height: 140%;
+            background: var(--accent);
+            transform: rotate(-15deg);
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 6rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--secondary);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .course-number {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            font-weight: 500;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .course-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .quick-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-box {
+            border-left: 3px solid var(--secondary);
+            padding-left: 1rem;
+        }
+
+        .info-box h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 6rem;
+            display: flex;
+            gap: 3rem;
+        }
+
+        nav a {
+            padding: 1.5rem 0;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+            border-bottom-color: var(--secondary);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 6rem;
+        }
+
+        section {
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        /* Overview Grid */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .overview-main h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .overview-main p, .overview-main ul {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .overview-main ul {
+            margin-left: 2rem;
+        }
+
+        .overview-sidebar {
+            background: var(--light);
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .overview-sidebar h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .overview-sidebar p {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .overview-sidebar strong {
+            color: var(--primary);
+        }
+
+        /* Schedule Table */
+        .schedule-wrapper {
+            background: white;
+            border: 2px solid var(--primary);
+            overflow: hidden;
+        }
+
+        .schedule-header {
+            background: var(--primary);
+            color: white;
+            display: grid;
+            grid-template-columns: 80px 120px 1fr 150px 180px;
+            padding: 1.2rem;
+            gap: 1.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-divider {
+            background: var(--secondary);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .schedule-row {
+            display: grid;
+            grid-template-columns: 80px 120px 1fr 150px 180px;
+            padding: 1.5rem 1.2rem;
+            gap: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-row:hover {
+            background: #f9fafb;
+        }
+
+        .schedule-row.holiday {
+            background: #fef3c7;
+        }
+
+        .schedule-row.final-exam {
+            background: #d1fae5;
+            font-weight: 600;
+        }
+
+        .col-week {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .col-date {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .col-topic {
+            line-height: 1.5;
+        }
+
+        .col-reading {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .col-assignment {
+            font-size: 0.95rem;
+        }
+
+        .schedule-wrapper a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-wrapper a:hover {
+            border-bottom-color: var(--secondary);
+        }
+
+        /* Assignments Grid */
+        .assignments-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .assignment-card {
+            background: white;
+            border: 2px solid var(--primary);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .assignment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--secondary);
+        }
+
+        .assignment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .assignment-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .assignment-card p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: #6b7280;
+        }
+
+        .due-date {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Grading Breakdown */
+        .grading-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .grade-item {
+            background: var(--light);
+            padding: 2rem;
+            text-align: center;
+            border-top: 4px solid var(--secondary);
+        }
+
+        .grade-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary);
+            font-weight: 700;
+            display: block;
+        }
+
+        .grade-label {
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .grade-description {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+
+        /* Resources */
+        .resource-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .resource-card {
+            background: white;
+            border-left: 5px solid var(--secondary);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateX(10px);
+            box-shadow: -5px 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .resource-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-card p {
+            line-height: 1.6;
+            color: #6b7280;
+        }
+
+        .resource-card a {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        /* Policies */
+        .policies-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .policy-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .policy-item p {
+            line-height: 1.8;
+            color: #4b5563;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-content,
+            .nav-container,
+            main {
+                padding-left: 3rem;
+                padding-right: 3rem;
+            }
+
+            .quick-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .course-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content,
+            .nav-container,
+            main {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .quick-info {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            nav a {
+                padding: 1rem 0;
+            }
+
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-header {
+                display: none;
+            }
+
+            .schedule-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .schedule-row > div::before {
+                content: attr(data-label) ": ";
+                font-weight: 600;
+                color: var(--primary);
+            }
+
+            .assignments-grid,
+            .grading-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="course-hero">
+        <div class="hero-content">
+            <a href="index.html" class="back-link">← Back to Main Page</a>
+            <div class="course-number">ECON 304</div>
+            <h1>Intermediate<br>Macroeconomics</h1>
+            <p class="course-subtitle">Understanding economic fluctuations, inflation, and policy through New Keynesian frameworks</p>
+            
+            <div class="quick-info">
+                <div class="info-box">
+                    <h4>Instructor</h4>
+                    <p>Sean Callahan<br>sean.callahan@colostate.edu</p>
+                </div>
+                <div class="info-box">
+                    <h4>Semester</h4>
+                    <p>Fall 2025<br>Sections 001 & 004</p>
+                </div>
+                <div class="info-box">
+                    <h4>Office Hours</h4>
+                    <p>W 12:00-2:00 PM<br>F 12:00-1:00 PM</p>
+                </div>
+                <div class="info-box">
+                    <h4>Location</h4>
+                    <p>Clark C309B<br>or by appointment</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#overview">Overview</a>
+            <a href="#schedule">Schedule</a>
+            <a href="#assignments">Assignments</a>
+            <a href="#resources">Resources</a>
+            <a href="#policies">Policies</a>
+        </div>
+    </nav>
+
+    <main>
+        <section id="overview">
+            <h2 class="section-title">Course Overview</h2>
+            <div class="overview-grid">
+                <div class="overview-main">
+                    <h3>About This Course</h3>
+                    <p>This course provides a comprehensive introduction to macroeconomic theory and policy analysis using New Keynesian frameworks. Students will develop analytical skills to understand economic fluctuations, inflation dynamics, and the role of monetary and fiscal policy in stabilizing the economy.</p>
+                    
+                    <h3>Learning Objectives</h3>
+                    <p>By the end of this course, students will be able to:</p>
+                    <ul>
+                        <li>Analyze short-run and long-run economic fluctuations using IS-LM-PC models</li>
+                        <li>Evaluate the effectiveness of monetary and fiscal policy interventions</li>
+                        <li>Understand the microfoundations of New Keynesian macroeconomic theory</li>
+                        <li>Apply macroeconomic models to real-world economic policy debates</li>
+                        <li>Critically assess macroeconomic data and forecasting methods</li>
+                    </ul>
+
+                    <h3>Prerequisites</h3>
+                    <p>ECON 204 (Principles of Macroeconomics) and MATH 155 (Calculus) or equivalent.</p>
+                </div>
+
+                <div class="overview-sidebar">
+                    <h4>Course Details</h4>
+                    <p><strong>Section 001</strong><br>MWF 11:00-11:50 AM<br>ANAZO Room 112E</p>
+                    <p><strong>Section 004</strong><br>MWF 10:00-10:50 AM<br>MICRO Room 108A</p>
+                    
+                    <h4 style="margin-top: 2rem;">Required Text</h4>
+                    <p>Blanchard, Olivier<br><em>Macroeconomics</em><br>9th Edition</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="schedule">
+            <h2 class="section-title">Course Schedule</h2>
+            
+            <div class="schedule-wrapper">
+                <div class="schedule-header">
+                    <div>Week</div>
+                    <div>Date</div>
+                    <div>Topics</div>
+                    <div>Readings</div>
+                    <div>Assignments</div>
+                </div>
+
+                <div class="section-divider">Short-Run</div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">1</div>
+                    <div class="col-date" data-label="Date">8/25</div>
+                    <div class="col-topic" data-label="Topics">Math Review & The Goods Market</div>
+                    <div class="col-reading" data-label="Readings">1-3, R1; <a href="https://eng.mgwk.de/kapitel1#nominal-vs.-real-variables-and-the-price-level">MGWK: 1.6</a></div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">2</div>
+                    <div class="col-date" data-label="Date">9/1</div>
+                    <div class="col-topic" data-label="Topics">Financial Markets</div>
+                    <div class="col-reading" data-label="Readings">4</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">3</div>
+                    <div class="col-date" data-label="Date">9/8</div>
+                    <div class="col-topic" data-label="Topics">The IS-LM Model</div>
+                    <div class="col-reading" data-label="Readings">5, R2</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">4</div>
+                    <div class="col-date" data-label="Date">9/15</div>
+                    <div class="col-topic" data-label="Topics">The IS-LM Model Extended</div>
+                    <div class="col-reading" data-label="Readings">6, R3</div>
+                    <div class="col-assignment" data-label="Assignments"><a href="Problem_Set_1.html">PS1</a>, Exam 1; <a href="https://www.youtube.com/watch?v=yL_PQ81vf74">GFC Doc</a></div>
+                </div>
+
+                <div class="section-divider">Medium-Run</div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">5</div>
+                    <div class="col-date" data-label="Date">9/22</div>
+                    <div class="col-topic" data-label="Topics">The Labor Market</div>
+                    <div class="col-reading" data-label="Readings">7; <a href="https://eng.mgwk.de/kapitel8">MGWK: 8, 9</a></div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">6</div>
+                    <div class="col-date" data-label="Date">9/29</div>
+                    <div class="col-topic" data-label="Topics">The Phillips Curve, Natural Rate, and Inflation</div>
+                    <div class="col-reading" data-label="Readings">8, R4</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">7</div>
+                    <div class="col-date" data-label="Date">10/6</div>
+                    <div class="col-topic" data-label="Topics">The IS-LM-PC Model</div>
+                    <div class="col-reading" data-label="Readings">9; <a href="https://eng.mgwk.de/kapitel11">MGWK: 11</a></div>
+                    <div class="col-assignment" data-label="Assignments"><a href="PS2.html">PS2</a></div>
+                </div>
+
+                <div class="section-divider">Long-Run</div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">8</div>
+                    <div class="col-date" data-label="Date">10/13</div>
+                    <div class="col-topic" data-label="Topics">The Facts of Growth</div>
+                    <div class="col-reading" data-label="Readings">10</div>
+                    <div class="col-assignment" data-label="Assignments">Exam 2</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">9</div>
+                    <div class="col-date" data-label="Date">10/20</div>
+                    <div class="col-topic" data-label="Topics">Saving, Capital Accumulation, and Output</div>
+                    <div class="col-reading" data-label="Readings">11</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">10</div>
+                    <div class="col-date" data-label="Date">10/27</div>
+                    <div class="col-topic" data-label="Topics">Technological Progress and Growth</div>
+                    <div class="col-reading" data-label="Readings">12</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">11</div>
+                    <div class="col-date" data-label="Date">11/3</div>
+                    <div class="col-topic" data-label="Topics">The Challenges of Growth</div>
+                    <div class="col-reading" data-label="Readings">13</div>
+                    <div class="col-assignment" data-label="Assignments"><a href="PS3.html">PS3</a>, Exam 3</div>
+                </div>
+
+                <div class="section-divider">Extension: Open Economy</div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">12</div>
+                    <div class="col-date" data-label="Date">11/10</div>
+                    <div class="col-topic" data-label="Topics">Openness in Goods and Financial Markets</div>
+                    <div class="col-reading" data-label="Readings">17</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">13</div>
+                    <div class="col-date" data-label="Date">11/17</div>
+                    <div class="col-topic" data-label="Topics">The Goods Market in an Open Economy</div>
+                    <div class="col-reading" data-label="Readings">18</div>
+                    <div class="col-assignment" data-label="Assignments"><a href="Extra_Credit_Assignment.html">Extra Credit</a></div>
+                </div>
+
+                <div class="schedule-row holiday">
+                    <div class="col-week" data-label="Week">14</div>
+                    <div class="col-date" data-label="Date">11/24</div>
+                    <div class="col-topic" data-label="Topics"><em>Thanksgiving Break</em></div>
+                    <div class="col-reading" data-label="Readings">—</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">15</div>
+                    <div class="col-date" data-label="Date">12/1</div>
+                    <div class="col-topic" data-label="Topics">Output, Interest Rate, and Exchange Rate</div>
+                    <div class="col-reading" data-label="Readings">19</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="col-week" data-label="Week">16</div>
+                    <div class="col-date" data-label="Date">12/8</div>
+                    <div class="col-topic" data-label="Topics"><strong>Back to Policy:</strong> Fiscal & Monetary Policy</div>
+                    <div class="col-reading" data-label="Readings">22-23</div>
+                    <div class="col-assignment" data-label="Assignments">—</div>
+                </div>
+
+                <div class="schedule-row final-exam">
+                    <div class="col-week" data-label="Week">—</div>
+                    <div class="col-date" data-label="Date">12/15</div>
+                    <div class="col-topic" data-label="Topics"><strong>FINAL EXAM WEEK</strong></div>
+                    <div class="col-reading" data-label="Readings">—</div>
+                    <div class="col-assignment" data-label="Assignments">Final Exam</div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 2rem; font-style: italic; color: #6b7280; text-align: center;">
+                Schedule is subject to change. Check Canvas regularly for updates.
+            </p>
+        </section>
+
+        <section id="assignments">
+            <h2 class="section-title">Assignments & Grading</h2>
+            
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); margin-top: 2rem;">Grading Breakdown</h3>
+            
+            <div class="grading-grid">
+                <div class="grade-item">
+                    <span class="grade-percentage">15%</span>
+                    <div class="grade-label">Problem Sets</div>
+                    <div class="grade-description">5 assignments, lowest dropped</div>
+                </div>
+                <div class="grade-item">
+                    <span class="grade-percentage">42%</span>
+                    <div class="grade-label">Midterm Exams</div>
+                    <div class="grade-description">3 exams @ 14% each</div>
+                </div>
+                <div class="grade-item">
+                    <span class="grade-percentage">14%</span>
+                    <div class="grade-label">Final Exam</div>
+                    <div class="grade-description">Cumulative, Dec 15</div>
+                </div>
+                <div class="grade-item">
+                    <span class="grade-percentage">9%</span>
+                    <div class="grade-label">Quizzes</div>
+                    <div class="grade-description">3 pop quizzes</div>
+                </div>
+                <div class="grade-item">
+                    <span class="grade-percentage">10%</span>
+                    <div class="grade-label">Group Project</div>
+                    <div class="grade-description">Case study analysis</div>
+                </div>
+                <div class="grade-item">
+                    <span class="grade-percentage">10%</span>
+                    <div class="grade-label">Participation</div>
+                    <div class="grade-description">In-class activities</div>
+                </div>
+            </div>
+
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); margin-top: 3rem;">Problem Sets</h3>
+            
+            <div class="assignments-grid">
+                <div class="assignment-card">
+                    <h4>Problem Set 1</h4>
+                    <p>IS-LM Analysis: Graphical and mathematical analysis of goods and financial markets equilibrium.</p>
+                    <span class="due-date">Due: September 15</span>
+                </div>
+
+                <div class="assignment-card">
+                    <h4>Problem Set 2</h4>
+                    <p>Phillips Curve & Inflation: Labor market dynamics and the relationship between unemployment and inflation.</p>
+                    <span class="due-date">Due: October 6</span>
+                </div>
+
+                <div class="assignment-card">
+                    <h4>Problem Set 3</h4>
+                    <p>Growth Theory: Solow model applications and convergence analysis.</p>
+                    <span class="due-date">Due: October 24</span>
+                </div>
+
+                <div class="assignment-card">
+                    <h4>Problem Set 4</h4>
+                    <p>Technological Progress: Technological change in the Solow model.</p>
+                    <span class="due-date">Due: October 31</span>
+                </div>
+
+                <div class="assignment-card">
+                    <h4>Problem Set 5</h4>
+                    <p>Open Economy Analysis: IS-LM extended to the open economy.</p>
+                    <span class="due-date">Due: November 21</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources">
+            <h2 class="section-title">Resources</h2>
+            
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <h4>Required Textbook</h4>
+                    <p>Blanchard, Olivier. <em>Macroeconomics</em> (9th Edition). Available at the CSU Bookstore and online. Previous editions may have different page numbers and chapter organization.</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Canvas Reading Assignments</h4>
+                    <p>Supplementary readings referenced in the schedule (R1, R2, R3, R4...) will be posted on Canvas. These include journal articles, policy papers, and additional theoretical materials that complement the textbook chapters.</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Federal Reserve Economic Data (FRED)</h4>
+                    <p>Essential source for macroeconomic data and visualizations.<br>
+                    <a href="https://fred.stlouisfed.org">https://fred.stlouisfed.org</a></p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Course Canvas Page</h4>
+                    <p>All assignments, slides, additional readings, and announcements will be posted on Canvas. Check regularly for updates and uploaded materials.</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Additional Resources</h4>
+                    <p>Congressional Budget Office (CBO) • Bureau of Economic Analysis (BEA) • Federal Reserve Board of Governors • International Monetary Fund (IMF) Data</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="policies">
+            <h2 class="section-title">Course Policies</h2>
+            
+            <div class="policies-grid">
+                <div class="policy-item">
+                    <h3>Attendance Policy</h3>
+                    <p>Regular attendance is expected and contributes to your participation grade. If you must miss class due to illness or emergency, please email me in advance when possible. Make-up quizzes will only be offered for documented absences.</p>
+                </div>
+
+                <div class="policy-item">
+                    <h3>Late Work Policy</h3>
+                    <p>Problem sets submitted late will receive a 10% deduction per day late. Assignments more than one week late will not be accepted unless prior arrangements have been made. The lowest problem set score will be dropped to account for unexpected circumstances.</p>
+                </div>
+
+                <div class="policy-item">
+                    <h3>Academic Integrity</h3>
+                    <p>Collaboration on problem sets is encouraged, but each student must submit their own work. Copying solutions from other students or online sources is not permitted. All exam work must be completed independently.</p>
+                </div>
+
+                <div class="policy-item">
+                    <h3>Accommodations</h3>
+                    <p>Students who require accommodations should contact Student Disability Services and provide documentation as early as possible in the semester. I will work with you to ensure you have equal access to course materials and assessments.</p>
+                </div>
+
+                <div class="policy-item">
+                    <h3>Communication</h3>
+                    <p>The best way to reach me is via email. I typically respond within 24 hours during weekdays. For urgent matters or complex questions, please come to office hours or schedule an appointment.</p>
+                </div>
+
+                <div class="policy-item">
+                    <h3>Grade Disputes</h3>
+                    <p>If you have concerns about a grade, please wait 24 hours after receiving feedback, then schedule a meeting during office hours. Come prepared to explain your reasoning in writing.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Sean Callahan • ECON 304 • Colorado State University</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add clickability to first assignment card
+        const firstAssignment = document.querySelector('.assignment-card');
+        if (firstAssignment) {
+            firstAssignment.style.cursor = 'pointer';
+            firstAssignment.addEventListener('click', function() {
+                window.location.href = 'Problem_Set_1.html';
+            });
+        }
+    </script>
+</body>
+</html>
