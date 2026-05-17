@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECON 240 | Sean Callahan</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --cream:  #f4efe6;
+            --cream2: #ece6d8;
+            --white:  #fafaf8;
+            --ink:    #19160f;
+            --ink2:   #2a2520;
+            --terra:  #bf4c38;
+            --warm:   #7a6c5c;
+            --muted:  #a09080;
+            --border: #d0c7b8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+
+        .global-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 52px;
+            background: rgba(244,239,230,0.97);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            z-index: 1000;
+        }
+
+        .gn-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem; font-weight: 600;
+            color: var(--ink); text-decoration: none;
+        }
+
+        .gn-back {
+            font-size: 0.72rem; font-weight: 500;
+            color: var(--warm); text-decoration: none;
+            letter-spacing: 0.8px; text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        .gn-back:hover { color: var(--terra); }
+
+        .hero {
+            background: var(--ink);
+            color: var(--cream);
+            padding: 6rem 3.5rem 4rem;
+            margin-top: 52px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: radial-gradient(circle, rgba(208,199,184,0.07) 1px, transparent 1px);
+            background-size: 34px 34px;
+            pointer-events: none;
+        }
+
+        .hero-inner { position: relative; z-index: 1; max-width: 1100px; }
+
+        .hero-course-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 2.5px; color: var(--terra);
+            margin-bottom: 0.75rem;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 300; line-height: 0.95;
+            letter-spacing: -2px; margin-bottom: 1.5rem;
+        }
+
+        .hero-desc {
+            font-size: 1rem; line-height: 1.75;
+            color: rgba(244,239,230,0.7);
+            max-width: 540px; margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .hero-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            border-top: 1px solid rgba(208,199,184,0.2);
+            padding-top: 2.5rem;
+        }
+
+        .meta-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem; text-transform: uppercase;
+            letter-spacing: 1.5px; color: rgba(191,76,56,0.85);
+            margin-bottom: 0.4rem;
+        }
+
+        .meta-val {
+            font-size: 0.9rem;
+            color: rgba(244,239,230,0.85);
+            line-height: 1.6; font-weight: 300;
+        }
+
+        .course-nav {
+            position: sticky; top: 52px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .course-nav-inner {
+            display: flex; padding: 0 3.5rem;
+            max-width: 1100px; margin: 0 auto;
+        }
+
+        .course-nav a {
+            padding: 1rem 1.25rem;
+            font-size: 0.78rem; font-weight: 500;
+            color: var(--muted); text-decoration: none;
+            letter-spacing: 0.5px; text-transform: uppercase;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .course-nav a:hover, .course-nav a.active {
+            color: var(--ink); border-bottom-color: var(--terra);
+        }
+
+        main { max-width: 1100px; margin: 0 auto; padding: 0 3.5rem; }
+
+        .content-section {
+            padding: 5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .content-section:last-child { border-bottom: none; }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--terra);
+            margin-bottom: 0.6rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.75rem; font-weight: 300;
+            color: var(--ink); margin-bottom: 2.5rem;
+            line-height: 1.1;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 4rem; align-items: start;
+        }
+
+        .overview-body h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem; font-weight: 400;
+            color: var(--ink); margin-bottom: 0.75rem;
+            margin-top: 2rem;
+        }
+        .overview-body h3:first-child { margin-top: 0; }
+
+        .overview-body p, .overview-body ul {
+            font-size: 0.975rem; line-height: 1.85;
+            color: var(--warm); font-weight: 300;
+            margin-bottom: 1.25rem;
+        }
+        .overview-body ul { padding-left: 1.5rem; }
+        .overview-body li { margin-bottom: 0.35rem; }
+
+        .overview-sidebar {
+            background: var(--cream2);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1.75rem;
+            position: sticky; top: 140px;
+        }
+
+        .sidebar-block { margin-bottom: 1.75rem; }
+        .sidebar-block:last-child { margin-bottom: 0; }
+
+        .sidebar-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--terra);
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-val {
+            font-size: 0.9rem; color: var(--warm);
+            line-height: 1.65; font-weight: 300;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .topic-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--terra);
+            border-radius: 2px;
+            padding: 1.5rem;
+        }
+
+        .topic-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem; font-weight: 300;
+            color: var(--terra); opacity: 0.4;
+            line-height: 1; margin-bottom: 0.5rem;
+        }
+
+        .topic-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem; font-weight: 400;
+            color: var(--ink); margin-bottom: 0.5rem;
+        }
+
+        .topic-desc {
+            font-size: 0.82rem; color: var(--warm);
+            line-height: 1.6; font-weight: 300;
+        }
+
+        .grade-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .grade-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--terra);
+            border-radius: 2px;
+            padding: 1.5rem; text-align: center;
+        }
+
+        .grade-pct {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem; font-weight: 300;
+            color: var(--ink); line-height: 1;
+            margin-bottom: 0.35rem;
+        }
+
+        .grade-name {
+            font-size: 0.78rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            color: var(--ink); margin-bottom: 0.25rem;
+        }
+
+        .grade-desc { font-size: 0.78rem; color: var(--muted); font-weight: 300; }
+
+        .policy-list { display: flex; flex-direction: column; gap: 2rem; }
+
+        .policy-item { padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+        .policy-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+        .policy-item h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem; font-weight: 400;
+            color: var(--ink); margin-bottom: 0.6rem;
+        }
+
+        .policy-item p {
+            font-size: 0.95rem; line-height: 1.85;
+            color: var(--warm); font-weight: 300;
+        }
+
+        footer {
+            background: var(--ink);
+            padding: 1.5rem 3.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5rem;
+        }
+
+        .ft { font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; color: var(--warm); }
+
+        @media (max-width: 900px) {
+            .hero { padding: 4rem 1.5rem 3rem; }
+            .hero-meta { grid-template-columns: repeat(2, 1fr); }
+            main { padding: 0 1.5rem; }
+            .course-nav-inner { padding: 0 1.5rem; overflow-x: auto; }
+            .overview-grid { grid-template-columns: 1fr; }
+            .topics-grid, .grade-grid { grid-template-columns: 1fr; }
+            .global-nav { padding: 0 1.5rem; }
+            footer { flex-direction: column; gap: 0.35rem; text-align: center; padding: 1.25rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="global-nav">
+        <a class="gn-brand" href="index_v2.html">Sean Callahan</a>
+        <a class="gn-back" href="index_v2.html#teaching">← Teaching</a>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-inner">
+            <div class="hero-course-code">ECON 240 · 2024–2025</div>
+            <h1>Environmental<br>Economics</h1>
+            <p class="hero-desc">Examining how economic frameworks apply to environmental problems — market failures, externalities, policy instruments, and the economics of sustainability.</p>
+
+            <div class="hero-meta">
+                <div>
+                    <div class="meta-label">Instructor</div>
+                    <div class="meta-val">Sean Callahan<br>sean.callahan@colostate.edu</div>
+                </div>
+                <div>
+                    <div class="meta-label">Role</div>
+                    <div class="meta-val">Instructor of Record<br>2024–2025</div>
+                </div>
+                <div>
+                    <div class="meta-label">Office Hours</div>
+                    <div class="meta-val">By appointment<br>Clark C309B</div>
+                </div>
+                <div>
+                    <div class="meta-label">Location</div>
+                    <div class="meta-val">Colorado State University<br>Fort Collins, CO</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="course-nav">
+        <div class="course-nav-inner">
+            <a href="#overview">Overview</a>
+            <a href="#topics">Topics</a>
+            <a href="#grading">Grading</a>
+            <a href="#policies">Policies</a>
+        </div>
+    </nav>
+
+    <main>
+
+        <div class="content-section" id="overview">
+            <div class="section-label">Course Overview</div>
+            <h2 class="section-title">About This Course</h2>
+
+            <div class="overview-grid">
+                <div class="overview-body">
+                    <h3>Description</h3>
+                    <p>Environmental Economics applies the tools of microeconomics to understand environmental problems and evaluate potential solutions. The course focuses on the economic causes of environmental degradation, the design and evaluation of environmental policy, and the trade-offs between economic activity and environmental quality.</p>
+
+                    <h3>Learning Objectives</h3>
+                    <p>By the end of this course, students will be able to:</p>
+                    <ul>
+                        <li>Identify and analyze market failures leading to environmental problems</li>
+                        <li>Evaluate the efficiency and equity of different environmental policy instruments</li>
+                        <li>Apply cost-benefit analysis to environmental policy decisions</li>
+                        <li>Understand the economics of natural resources and sustainability</li>
+                        <li>Critically assess current environmental policy debates</li>
+                    </ul>
+
+                    <h3>Prerequisites</h3>
+                    <p>ECON 202 (Principles of Microeconomics) or equivalent. Some familiarity with basic algebra is expected.</p>
+                </div>
+
+                <div class="overview-sidebar">
+                    <div class="sidebar-block">
+                        <div class="sidebar-label">Department</div>
+                        <div class="sidebar-val">Department of Economics<br>Colorado State University</div>
+                    </div>
+                    <div class="sidebar-block">
+                        <div class="sidebar-label">Level</div>
+                        <div class="sidebar-val">Undergraduate<br>200-level</div>
+                    </div>
+                    <div class="sidebar-block">
+                        <div class="sidebar-label">Materials</div>
+                        <div class="sidebar-val">Readings posted on Canvas. No required textbook purchase.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="topics">
+            <div class="section-label">Curriculum</div>
+            <h2 class="section-title">Course Topics</h2>
+
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <div class="topic-num">01</div>
+                    <div class="topic-title">Market Failures &amp; Externalities</div>
+                    <p class="topic-desc">Why markets fail to account for environmental costs. Negative externalities, public goods, and the commons problem.</p>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-num">02</div>
+                    <div class="topic-title">Policy Instruments</div>
+                    <p class="topic-desc">Comparing regulatory approaches: Pigouvian taxes, cap-and-trade, standards, and subsidies. Efficiency, equity, and political economy.</p>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-num">03</div>
+                    <div class="topic-title">Cost-Benefit Analysis</div>
+                    <p class="topic-desc">Valuing environmental goods and services. Methods for placing monetary values on non-market outcomes.</p>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-num">04</div>
+                    <div class="topic-title">Natural Resources</div>
+                    <p class="topic-desc">Economics of renewable and non-renewable resources. Optimal extraction paths, sustainability, and intergenerational equity.</p>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-num">05</div>
+                    <div class="topic-title">Climate Economics</div>
+                    <p class="topic-desc">The economics of climate change. Social cost of carbon, international agreements, and the macroeconomics of the green transition.</p>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-num">06</div>
+                    <div class="topic-title">Environmental Justice</div>
+                    <p class="topic-desc">Distributional consequences of environmental problems and policies. Race, income, and the unequal burden of pollution.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="grading">
+            <div class="section-label">Assessment</div>
+            <h2 class="section-title">Grading</h2>
+
+            <div class="grade-grid">
+                <div class="grade-card">
+                    <div class="grade-pct">30%</div>
+                    <div class="grade-name">Problem Sets</div>
+                    <div class="grade-desc">Applied exercises</div>
+                </div>
+                <div class="grade-card">
+                    <div class="grade-pct">30%</div>
+                    <div class="grade-name">Midterm Exams</div>
+                    <div class="grade-desc">2 exams @ 15%</div>
+                </div>
+                <div class="grade-card">
+                    <div class="grade-pct">20%</div>
+                    <div class="grade-name">Final Exam</div>
+                    <div class="grade-desc">Cumulative</div>
+                </div>
+                <div class="grade-card">
+                    <div class="grade-pct">10%</div>
+                    <div class="grade-name">Policy Brief</div>
+                    <div class="grade-desc">Written assignment</div>
+                </div>
+                <div class="grade-card">
+                    <div class="grade-pct">10%</div>
+                    <div class="grade-name">Participation</div>
+                    <div class="grade-desc">In-class discussion</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="policies">
+            <div class="section-label">Expectations</div>
+            <h2 class="section-title">Course Policies</h2>
+
+            <div class="policy-list">
+                <div class="policy-item">
+                    <h3>Attendance</h3>
+                    <p>Regular attendance is expected. Much of the course involves in-class discussion and applied problem-solving that cannot be replicated from notes alone.</p>
+                </div>
+                <div class="policy-item">
+                    <h3>Late Work</h3>
+                    <p>Late work is not accepted unless prior arrangements have been made with the instructor before the due date.</p>
+                </div>
+                <div class="policy-item">
+                    <h3>Academic Integrity</h3>
+                    <p>Collaboration on problem sets is encouraged, but each student must submit their own written work. All exam and written assignment submissions must be your own.</p>
+                </div>
+                <div class="policy-item">
+                    <h3>Accommodations</h3>
+                    <p>Students who require accommodations should contact Student Disability Services and share documentation with me as early as possible in the semester.</p>
+                </div>
+                <div class="policy-item">
+                    <h3>Communication</h3>
+                    <p>Email is the best way to reach me. I typically respond within 24 hours on weekdays. For more complex questions, please come to office hours.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <span class="ft">© 2025 Sean Callahan · ECON 240</span>
+        <span class="ft">Colorado State University</span>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        const sections = document.querySelectorAll('.content-section');
+        const navLinks = document.querySelectorAll('.course-nav a');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    const match = document.querySelector(`.course-nav a[href="#${entry.target.id}"]`);
+                    if (match) match.classList.add('active');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>

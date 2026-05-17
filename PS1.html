@@ -2592,6 +2592,92 @@ font-size: 0.9rem;
 </head>
 
 <body class="quarto-light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f4efe6; --cream2: #ece6d8;
+  --ink: #19160f; --ink2: #2a2520;
+  --terra: #bf4c38;
+  --warm: #7a6c5c; --muted: #a09080;
+  --border: #d0c7b8;
+}
+#folio-nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 52px;
+  background: rgba(244,239,230,0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  z-index: 99999;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+.fn-brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.05rem; font-weight: 600;
+  color: var(--ink); text-decoration: none;
+}
+.fn-links { display: flex; gap: 2rem; }
+.fn-links a {
+  font-size: 0.72rem; font-weight: 500;
+  color: var(--warm); text-decoration: none;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.fn-links a:hover { color: var(--terra) !important; }
+body {
+  padding-top: 52px !important;
+  background: var(--cream) !important;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  color: var(--ink) !important;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Cormorant Garamond", serif !important;
+  color: var(--ink) !important;
+}
+#title-block-header {
+  background: var(--ink) !important;
+  color: var(--cream) !important;
+  padding: 3rem 2.5rem !important;
+  margin-bottom: 0 !important;
+  border-radius: 0 !important;
+}
+#title-block-header .quarto-title h1 {
+  color: var(--cream) !important;
+  font-size: 2.75rem !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.5px !important;
+}
+.quarto-title-meta-heading { color: rgba(244,239,230,0.5) !important; }
+.quarto-title-meta-contents p { color: rgba(244,239,230,0.85) !important; }
+#quarto-content { background: var(--cream) !important; }
+.sidebar.toc-left {
+  background: var(--cream2) !important;
+  border-right: 1px solid var(--border) !important;
+}
+#TOC a { color: var(--warm) !important; text-decoration: none !important; }
+#TOC a.active, #TOC a:hover { color: var(--terra) !important; }
+main a, .quarto-appendix a { color: var(--terra) !important; }
+code, kbd, samp {
+  font-family: "JetBrains Mono", monospace !important;
+  color: var(--terra) !important;
+  background: rgba(191,76,56,0.07) !important;
+  border-radius: 2px !important;
+}
+pre { background: var(--cream2) !important; border: 1px solid var(--border) !important; border-radius: 4px !important; }
+pre code { background: transparent !important; color: var(--ink) !important; }
+.quarto-light { background: var(--cream) !important; }
+</style>
+<div id="folio-nav">
+  <a class="fn-brand" href="index_v2.html">Sean Callahan</a>
+  <div class="fn-links">
+    <a href="index_v2.html#research">Research</a>
+    <a href="econ304.html">ECON 304</a>
+    <a href="index_v2.html#contact">Contact</a>
+  </div>
+</div>
+
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
 <div id="quarto-sidebar-toc-left" class="sidebar toc-left">
