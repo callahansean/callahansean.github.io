@@ -5,705 +5,892 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sean Callahan | Economics PhD</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --primary: #0a2540;
-            --secondary: #e07a5f;
-            --accent: #3d5a80;
-            --light: #f4f1de;
-            --dark: #1a1a1a;
-            --text: #2d3748;
+            --ink:        #0b0b14;
+            --paper:      #f9f7f2;
+            --warm:       #f2ede4;
+            --electric:   #1d4ed8;
+            --gold:       #b45309;
+            --gold-b:     #d97706;
+            --teal:       #0d9488;
+            --rose:       #e11d48;
+            --muted:      #64748b;
+            --border:     rgba(11,11,20,0.09);
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text);
-            background: #fafafa;
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background: var(--paper);
+            color: var(--ink);
             overflow-x: hidden;
         }
 
-        /* Hero Section */
+        /* ── CURSOR ── */
+        .cursor {
+            width: 8px; height: 8px;
+            background: var(--electric);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%,-50%);
+        }
+        .cursor-ring {
+            width: 36px; height: 36px;
+            border: 1.5px solid var(--electric);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%,-50%);
+            transition: all 0.12s ease-out;
+            opacity: 0.55;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 500;
+            padding: 1.25rem 3.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.35s, border-color 0.35s, padding 0.35s;
+        }
+        nav.scrolled {
+            background: rgba(249,247,242,0.96);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.9rem 3.5rem;
+        }
+        .nav-brand {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1rem;
+            color: white;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        nav.scrolled .nav-brand { opacity: 1; color: var(--ink); }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a {
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: white; }
+        nav.scrolled .nav-links a { color: var(--muted); }
+        nav.scrolled .nav-links a:hover { color: var(--ink); }
+
+        /* ── HERO ── */
         .hero {
             min-height: 100vh;
-            background: var(--primary);
-            color: white;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            background: var(--ink);
             position: relative;
+            display: flex;
             overflow: hidden;
         }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 80%;
-            height: 150%;
-            background: var(--accent);
-            transform: rotate(-12deg);
-            opacity: 0.1;
+        #hero-canvas { position: absolute; inset: 0; opacity: 0.55; }
+        .hero-inner {
+            position: relative; z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
         }
-
         .hero-left {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding: 4rem 6rem;
-            position: relative;
-            z-index: 2;
+            justify-content: flex-end;
+            padding: 7rem 4rem 5rem 6rem;
         }
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--gold-b);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .hero-tag::before { content: ''; width: 22px; height: 1px; background: var(--gold-b); }
+        .hero-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(4rem, 8vw, 7.5rem);
+            line-height: 0.92;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        .hero-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 440px;
+            margin-bottom: 2.5rem;
+        }
+        .hero-actions { display: flex; gap: 0.875rem; }
+        .btn {
+            padding: 0.85rem 1.875rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.22s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .btn-primary { background: var(--electric); color: white; }
+        .btn-primary:hover { background: #1e40af; transform: translateY(-2px); }
+        .btn-ghost {
+            background: transparent;
+            color: rgba(255,255,255,0.8);
+            border: 1.5px solid rgba(255,255,255,0.25);
+        }
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.7); color: white; }
 
         .hero-right {
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
-            padding: 4rem;
-            position: relative;
+            padding: 0 5rem 0 2rem;
         }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 5rem;
-            line-height: 1;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--secondary);
-            margin-bottom: 0.5rem;
-            font-weight: 300;
-        }
-
-        .hero-description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-top: 2rem;
-            opacity: 0.9;
-            max-width: 500px;
-        }
-
-        .headshot-container {
-            position: relative;
-        }
-
-        .headshot {
-            width: 400px;
-            height: 400px;
-            border-radius: 0;
+        .photo-wrap { position: relative; width: 360px; }
+        .photo-wrap img {
+            width: 100%;
+            aspect-ratio: 3/4;
             object-fit: cover;
-            object-position: center 20%;
-            box-shadow: 30px 30px 0 var(--secondary);
-            position: relative;
-            z-index: 1;
+            object-position: center 15%;
+            display: block;
+        }
+        .photo-border {
+            position: absolute;
+            bottom: -18px; right: -18px;
+            width: 100%; height: 100%;
+            border: 2px solid var(--gold-b);
+            z-index: -1;
         }
 
-        /* Quick Links */
-        .quick-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .quick-links a {
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            color: white;
-            border: 2px solid white;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .quick-links a:first-child {
-            background: var(--secondary);
-            border-color: var(--secondary);
-        }
-
-        .quick-links a:hover {
-            transform: translateX(5px);
-            background: white;
-            color: var(--primary);
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            right: 0;
-            padding: 2rem;
-            z-index: 1000;
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
+        .scroll-hint {
+            position: absolute;
+            bottom: 2.5rem; left: 6rem;
+            color: rgba(255,255,255,0.35);
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .scroll-hint::after {
+            content: '';
+            width: 40px; height: 1px;
+            background: rgba(255,255,255,0.2);
+            animation: line-pulse 2.2s infinite;
+        }
+        @keyframes line-pulse {
+            0%,100% { width: 25px; }
+            50% { width: 55px; }
         }
 
-        nav a:hover {
-            color: var(--secondary);
+        /* ── PULL QUOTE ── */
+        .pull-quote-section {
+            padding: 6rem 6rem 5rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .pull-quote {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.6rem, 2.8vw, 2.25rem);
+            line-height: 1.45;
+            border-left: 3px solid var(--electric);
+            padding-left: 2.5rem;
+            color: var(--ink);
+        }
+        .pull-attribution {
+            margin-top: 1.25rem;
+            padding-left: 2.5rem;
+            color: var(--muted);
+            font-size: 0.875rem;
         }
 
-        /* Section Styling */
-        section {
+        /* ── RESEARCH (dark) ── */
+        #research {
+            background: var(--ink);
+            padding: 6rem;
+        }
+        .research-header {
+            max-width: 1400px;
+            margin: 0 auto 0;
+        }
+        .section-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+        .section-eyebrow::after { content: ''; width: 40px; height: 1px; }
+        .eyebrow-light { color: rgba(255,255,255,0.35); }
+        .eyebrow-light::after { background: rgba(255,255,255,0.2); }
+        .eyebrow-dark { color: var(--electric); }
+        .eyebrow-dark::after { background: var(--electric); }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+            line-height: 1.1;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(255,255,255,0.07);
+            margin-top: 3.5rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .research-card {
+            background: var(--ink);
+            padding: 3rem;
+            transition: background 0.3s;
+        }
+        .research-card:hover { background: #13131e; }
+        .r-icon {
+            width: 46px; height: 46px;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+        }
+        .research-card:nth-child(1) .r-icon { background: rgba(29,78,216,0.14); color: #93c5fd; }
+        .research-card:nth-child(2) .r-icon { background: rgba(180,83,9,0.14);  color: #fcd34d; }
+        .research-card:nth-child(3) .r-icon { background: rgba(13,148,136,0.14);color: #5eead4; }
+        .r-num {
+            font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            margin-bottom: 0.875rem;
+        }
+        .research-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.45rem;
+            color: white;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        .research-card p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        .r-tags { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .tag {
+            padding: 0.25rem 0.7rem;
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.45);
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+            border-radius: 100px;
+        }
+
+        /* ── PAPERS ── */
+        #papers {
             padding: 6rem 6rem;
             max-width: 1400px;
             margin: 0 auto;
         }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            position: relative;
-            display: inline-block;
+        .papers-list {
+            margin-top: 2.5rem;
+            border-top: 1px solid var(--border);
         }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100px;
-            height: 4px;
-            background: var(--secondary);
-        }
-
-        /* Research Section */
-        .research-layout {
+        .paper-row {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 3rem;
+            grid-template-columns: 72px 1fr auto;
+            gap: 2.5rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            align-items: start;
+            transition: padding-left 0.22s;
+        }
+        .paper-row:hover { padding-left: 0.75rem; }
+        .p-year {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.35rem;
+            color: var(--muted);
+            padding-top: 0.1rem;
+        }
+        .p-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.2rem;
+            line-height: 1.45;
+            margin-bottom: 0.4rem;
+        }
+        .p-meta { color: var(--muted); font-size: 0.82rem; }
+        .badge {
+            padding: 0.3rem 0.85rem;
+            border-radius: 100px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            white-space: nowrap;
+            align-self: center;
+        }
+        .badge-wp  { background: rgba(29,78,216,0.09); color: var(--electric); }
+        .badge-jmp { background: rgba(180,83,9,0.1);   color: var(--gold); }
+
+        /* ── TEACHING ── */
+        #teaching {
+            background: var(--warm);
+            padding: 6rem;
+        }
+        .teaching-inner { max-width: 1400px; margin: 0 auto; }
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
             margin-top: 3rem;
         }
-
-        .research-main h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .research-main p {
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-        }
-
-        .research-sidebar {
-            background: var(--primary);
-            color: white;
-            padding: 2rem;
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
-
-        .research-sidebar h4 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
-
-        .research-sidebar ul {
-            list-style: none;
-        }
-
-        .research-sidebar li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .research-sidebar li:last-child {
-            border-bottom: none;
-        }
-
-        /* Papers Section */
-        #papers {
-            background: var(--light);
-        }
-
-        .papers-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .paper-card {
+        .course-card {
             background: white;
-            padding: 2rem;
-            border-left: 5px solid var(--secondary);
-            transition: all 0.3s ease;
-            cursor: pointer;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.28s, box-shadow 0.28s;
         }
-
-        .paper-card:hover {
-            transform: translateX(10px);
-            box-shadow: -10px 10px 30px rgba(0,0,0,0.1);
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.08);
         }
-
-        .paper-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+        .c-accent {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+        .course-card:nth-child(1) .c-accent { background: var(--electric); }
+        .course-card:nth-child(2) .c-accent { background: var(--gold-b); }
+        .course-card:nth-child(3) .c-accent { background: var(--teal); }
+        .course-card:nth-child(4) .c-accent { background: var(--rose); }
+        .c-num {
+            font-size: 0.72rem; font-weight: 600;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--muted);
             margin-bottom: 0.5rem;
-            color: var(--primary);
         }
-
-        .paper-author {
-            color: var(--accent);
+        .c-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.45rem;
+            margin-bottom: 0.4rem;
+        }
+        .c-role {
+            font-size: 0.82rem;
+            color: var(--electric);
             font-weight: 500;
             margin-bottom: 1rem;
         }
-
-        .paper-year {
-            color: #666;
-            font-size: 0.9rem;
+        .c-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.65; }
+        .c-arrow {
+            position: absolute;
+            bottom: 1.5rem; right: 1.5rem;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: opacity 0.2s, transform 0.2s;
         }
+        .course-card.clickable { cursor: pointer; }
+        .course-card.clickable:hover .c-arrow { opacity: 1; transform: scale(1); }
 
-        /* Teaching Section */
-        .teaching-grid {
+        /* ── SKILLS STRIP ── */
+        .skills-strip {
+            background: var(--electric);
+            color: white;
+            padding: 4rem 6rem;
+            overflow: hidden;
+        }
+        .skills-inner {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
         }
+        .skill-group h4 {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+            margin-bottom: 1.25rem;
+        }
+        .skill-group ul { list-style: none; }
+        .skill-group li {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9rem;
+            padding: 0.35rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .skill-group li:last-child { border-bottom: none; }
 
-        .course-card {
-            background: white;
-            border: 2px solid var(--primary);
-            padding: 2rem;
-            transition: all 0.3s ease;
+        /* ── CONTACT (dark) ── */
+        #contact {
+            background: var(--ink);
+            color: white;
+            padding: 7rem 6rem;
             position: relative;
             overflow: hidden;
         }
-
-        .course-card::before {
-            content: '';
+        .c-glow {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background: var(--primary);
-            transition: width 0.3s ease;
-            z-index: 0;
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(29,78,216,0.18) 0%, transparent 65%);
+            top: -250px; right: -150px;
+            pointer-events: none;
         }
-
-        .course-card:hover::before {
-            width: 100%;
+        .contact-inner { max-width: 1400px; margin: 0 auto; position: relative; }
+        .contact-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
         }
-
-        .course-card:hover {
-            color: white;
-            border-color: var(--secondary);
+        .contact-left h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
         }
-
-        .course-card > * {
-            position: relative;
-            z-index: 1;
+        .contact-left p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 380px;
         }
-
-        .course-number {
-            font-size: 3rem;
-            font-family: 'Playfair Display', serif;
-            opacity: 0.1;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-weight: 700;
+        .contact-email {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold-b);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
         }
-
-        .course-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+        .contact-email:hover { border-color: var(--gold-b); }
+        .contact-cards { display: flex; flex-direction: column; gap: 1rem; }
+        .contact-card {
+            padding: 1.5rem 2rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: border-color 0.2s;
+        }
+        .contact-card:hover { border-color: rgba(255,255,255,0.2); }
+        .cc-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
             margin-bottom: 0.5rem;
         }
+        .cc-value { color: white; font-size: 0.9rem; line-height: 1.65; }
 
-        .course-role {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-            opacity: 0.8;
-        }
-
-        /* Skills Section */
-        .skills {
-            background: var(--primary);
-            color: white;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
-        }
-
-        .skill-category h4 {
-            color: var(--secondary);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .skill-category ul {
-            list-style: none;
-        }
-
-        .skill-category li {
-            padding: 0.5rem 0;
-            opacity: 0.9;
-        }
-
-        /* Contact Section */
-        #contact {
-            background: var(--dark);
-            color: white;
-            text-align: center;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .contact-box {
-            padding: 2rem;
-            border: 2px solid var(--secondary);
-            transition: all 0.3s ease;
-        }
-
-        .contact-box:hover {
-            background: var(--secondary);
-            transform: scale(1.05);
-        }
-
-        .contact-box h4 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .contact-box p {
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        /* Footer */
+        /* ── FOOTER ── */
         footer {
-            background: var(--dark);
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            background: #060610;
+            padding: 1.75rem 6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+        footer p { color: rgba(255,255,255,0.25); font-size: 0.78rem; }
 
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: bounce 2s infinite;
+        /* ── REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
         }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-d1 { transition-delay: 0.1s; }
+        .reveal-d2 { transition-delay: 0.2s; }
+        .reveal-d3 { transition-delay: 0.3s; }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-
-        /* Responsive */
+        /* ── RESPONSIVE ── */
         @media (max-width: 1024px) {
-            .hero {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-left {
-                padding: 3rem 2rem;
-            }
-
-            .hero-right {
-                padding: 2rem;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .headshot {
-                width: 300px;
-                height: 300px;
-            }
-
-            section {
-                padding: 4rem 2rem;
-            }
-
-            .research-layout,
-            .teaching-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .skills {
-                grid-template-columns: 1fr;
-            }
+            .hero-inner { grid-template-columns: 1fr; }
+            .hero-right  { display: none; }
+            .hero-left   { padding: 7rem 2.5rem 5rem; }
+            nav, nav.scrolled { padding-left: 2rem; padding-right: 2rem; }
+            .research-grid   { grid-template-columns: 1fr; }
+            #research        { padding: 4rem 2.5rem; }
+            #papers          { padding: 4rem 2.5rem; }
+            #teaching        { padding: 4rem 2.5rem; }
+            .skills-strip    { padding: 3rem 2.5rem; }
+            .skills-inner    { grid-template-columns: 1fr; gap: 2rem; }
+            #contact         { padding: 4rem 2.5rem; }
+            .contact-row     { grid-template-columns: 1fr; gap: 3rem; }
+            .courses-grid    { grid-template-columns: 1fr; }
+            .pull-quote-section { padding: 4rem 2.5rem; }
+            footer { padding: 1.75rem 2.5rem; flex-direction: column; gap: 0.4rem; }
+            .paper-row { grid-template-columns: 1fr; gap: 0.5rem; }
+            .p-year { display: none; }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="#research">Research</a>
-        <a href="#papers">Papers</a>
-        <a href="#teaching">Teaching</a>
-        <a href="#contact">Contact</a>
+
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <nav id="mainNav">
+        <a href="#" class="nav-brand">Sean Callahan</a>
+        <ul class="nav-links">
+            <li><a href="#research">Research</a></li>
+            <li><a href="#papers">Papers</a></li>
+            <li><a href="#teaching">Teaching</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </nav>
 
-    <div class="hero">
-        <div class="hero-left">
-            <div class="hero-subtitle">Economics PhD Candidate</div>
-            <h1>Sean<br>Callahan</h1>
-            <p class="hero-description">
-                Macroeconomist studying regional development, structural transformation, 
-                and how policy shapes economic change. Currently researching spatial 
-                Keynesian economics and demand spillovers at Colorado State University.
-            </p>
-            <div class="quick-links">
-                <a href="#papers">View Research</a>
-                <a href="cv.pdf">Download CV</a>
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-inner">
+            <div class="hero-left">
+                <div class="hero-tag">Economics PhD Candidate</div>
+                <h1 class="hero-name">Sean<br>Callahan</h1>
+                <p class="hero-desc">
+                    Macroeconomist studying how fiscal policy and demand
+                    propagate across space. Developing spatial Keynesian
+                    frameworks to understand regional dynamics and
+                    coordination failures at Colorado State University.
+                </p>
+                <div class="hero-actions">
+                    <a href="#papers" class="btn btn-primary">View Research →</a>
+                    <a href="cv.pdf" class="btn btn-ghost">Download CV</a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="photo-wrap">
+                    <img src="headshot.jpeg" alt="Sean Callahan">
+                    <div class="photo-border"></div>
+                </div>
             </div>
         </div>
-        <div class="hero-right">
-            <div class="headshot-container">
-                <img src="headshot.jpeg" alt="Sean Callahan" class="headshot">
-            </div>
-        </div>
-        <div class="scroll-indicator">Scroll to explore ↓</div>
+        <div class="scroll-hint">Scroll to explore</div>
+    </section>
+
+    <!-- ── PULL QUOTE ── -->
+    <div class="pull-quote-section">
+        <blockquote class="pull-quote reveal">
+            "Spatial coordination failures in fiscal policy can deepen economic
+            contractions — understanding the geography of demand is essential
+            to understanding macroeconomics."
+        </blockquote>
+        <p class="pull-attribution reveal reveal-d1">
+            Colorado State University &nbsp;·&nbsp; Department of Economics &nbsp;·&nbsp; Fort Collins, CO
+        </p>
     </div>
 
+    <!-- ── RESEARCH ── -->
     <section id="research">
-        <h2 class="section-title">Research Interests</h2>
-        <div class="research-layout">
-            <div class="research-main">
+        <div class="research-header">
+            <div class="section-eyebrow eyebrow-light"><span>01</span> Research Areas</div>
+            <h2 class="section-title reveal" style="color:white;">Where I Focus<br>My Work</h2>
+        </div>
+        <div class="research-grid">
+            <div class="research-card reveal">
+                <div class="r-icon">⬡</div>
+                <div class="r-num">Area 01</div>
                 <h3>Spatial Keynesian Economics</h3>
-                <p>
-                    My primary research develops a spatial Keynesian framework examining how 
-                    fiscal policy effects and demand spillovers propagate across regions. 
-                    Using European NUTS2 regions during the Global Financial Crisis and Euro 
-                    debt crisis, I explore how public sector shocks propagate across space and time
-                    to produce coordination failures that deepen economic contractions.
-                </p>
-
-                <h3>Structural Transformation & Development</h3>
-                <p>
-                    I examine how economies' industrial composition evolves and what role 
-                    policy plays in steering this change. My work bridges theoretical frameworks 
-                    with empirical analysis to understand production linkages, institutional 
-                    capacity, and the mechanisms of economic development in both advanced and 
-                    emerging economies.
-                </p>
-
+                <p>Developing a spatial Keynesian framework examining how fiscal policy effects and demand spillovers propagate across regions. Using European NUTS2 data to explore public sector shocks and coordination failures that deepen contractions.</p>
+                <div class="r-tags">
+                    <span class="tag">Spatial Econometrics</span>
+                    <span class="tag">Fiscal Policy</span>
+                    <span class="tag">Panel Data</span>
+                </div>
+            </div>
+            <div class="research-card reveal reveal-d1">
+                <div class="r-icon">◈</div>
+                <div class="r-num">Area 02</div>
+                <h3>Structural Transformation &amp; Development</h3>
+                <p>Examining how economies' industrial composition evolves and what role policy plays in steering this change — bridging theoretical frameworks with empirical analysis of production linkages and institutional capacity.</p>
+                <div class="r-tags">
+                    <span class="tag">Input-Output</span>
+                    <span class="tag">Network Analysis</span>
+                    <span class="tag">Industrial Policy</span>
+                </div>
+            </div>
+            <div class="research-card reveal reveal-d2">
+                <div class="r-icon">◎</div>
+                <div class="r-num">Area 03</div>
                 <h3>Green Transition Macroeconomics</h3>
-                <p>
-                    Through demand-driven models and simulations, I explore how economies can 
-                    navigate the energy transition while maintaining employment and growth. 
-                    This research investigates the macroeconomic dynamics of capacity investment 
-                    and the distributional implications of climate policy.
-                </p>
-            </div>
-            <div class="research-sidebar">
-                <h4>Methods & Tools</h4>
-                <ul>
-                    <li>Spatial Econometrics</li>
-                    <li>Panel Data Methods</li>
-                    <li>Input-Output Analysis</li>
-                    <li>Network Analysis</li>
-                </ul>
-
-                <h4 style="margin-top: 2rem;">Software</h4>
-                <ul>
-                    <li>R</li>
-                </ul>
-
-                <h4 style="margin-top: 2rem;">Approaches</h4>
-                <ul>
-                    <li>Keynesian</li>
-                    <li>Structuralist</li>
-                    <li>Institutional</li>
-                    <li>Spatial Economics</li>
-                </ul>
+                <p>Demand-driven models of energy capacity investment exploring how economies navigate the energy transition while maintaining employment and growth, with attention to distributional implications of climate policy.</p>
+                <div class="r-tags">
+                    <span class="tag">Climate Policy</span>
+                    <span class="tag">Demand Models</span>
+                    <span class="tag">Simulation</span>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- ── PAPERS ── -->
     <section id="papers">
-        <h2 class="section-title">Working Papers</h2>
-        <div class="papers-grid">
-            <div class="paper-card">
-                <div class="paper-title">Spatial Keynesianism: Demand Spillovers and Public Finance</div>
-                <div class="paper-author">Sean Callahan</div>
-                <div class="paper-year">Job Market Paper • 2025</div>
+        <div class="section-eyebrow eyebrow-dark"><span>02</span> Working Papers</div>
+        <h2 class="section-title reveal">Research Output</h2>
+        <div class="papers-list">
+            <div class="paper-row reveal">
+                <div class="p-year">2025</div>
+                <div>
+                    <div class="p-title">Spatial Keynesianism: Demand Spillovers and Public Finance</div>
+                    <div class="p-meta">Sean Callahan</div>
+                </div>
+                <span class="badge badge-jmp">Job Market Paper</span>
             </div>
-
-            <div class="paper-card">
-                <div class="paper-title">A Theoretical Framework for Spatial Keynesianism</div>
-                <div class="paper-author">Sean Callahan</div>
-                <div class="paper-year">Working Paper • 2025</div>
+            <div class="paper-row reveal reveal-d1">
+                <div class="p-year">2025</div>
+                <div>
+                    <div class="p-title">A Theoretical Framework for Spatial Keynesianism</div>
+                    <div class="p-meta">Sean Callahan</div>
+                </div>
+                <span class="badge badge-wp">Working Paper</span>
             </div>
-
-            <div class="paper-card">
-                <div class="paper-title">The Collapse of the Social Partnership and Structural Change in the Celtic Tiger</div>
-                <div class="paper-author">Sean Callahan</div>
-                <div class="paper-year">2024</div>
+            <div class="paper-row reveal reveal-d2">
+                <div class="p-year">2024</div>
+                <div>
+                    <div class="p-title">The Collapse of the Social Partnership and Structural Change in the Celtic Tiger</div>
+                    <div class="p-meta">Sean Callahan</div>
+                </div>
+                <span class="badge badge-wp">Working Paper</span>
             </div>
-
-            <div class="paper-card">
-                <div class="paper-title">Demand-driven Model of Energy Capacity Investment</div>
-                <div class="paper-author">Sean Callahan</div>
-                <div class="paper-year">2024</div>
+            <div class="paper-row reveal reveal-d3">
+                <div class="p-year">2024</div>
+                <div>
+                    <div class="p-title">Demand-driven Model of Energy Capacity Investment</div>
+                    <div class="p-meta">Sean Callahan</div>
+                </div>
+                <span class="badge badge-wp">Working Paper</span>
             </div>
         </div>
     </section>
 
+    <!-- ── TEACHING ── -->
     <section id="teaching">
-        <h2 class="section-title">Teaching Experience</h2>
-        <div class="teaching-grid">
-            <div class="course-card">
-                <div class="course-number">304</div>
-                <div class="course-title">Intermediate Macroeconomics</div>
-                <div class="course-role">Instructor of Record • Spring 2026</div>
-                <p>New Keynesian theory, economic fluctuations, inflation, and growth theory.</p>
-            </div>
-
-            <div class="course-card">
-                <div class="course-number">240</div>
-                <div class="course-title">Environmental Economics</div>
-                <div class="course-role">Instructor of Record • 2024-2025</div>
-                <p>Market failures, policy instruments, and sustainability economics.</p>
-            </div>
-
-            <div class="course-card">
-                <div class="course-number">204</div>
-                <div class="course-title">Principles of Macroeconomics</div>
-                <div class="course-role">Teaching Assistant • 2023-2024</div>
-                <p>Introductory macroeconomics with recitation sections and tutoring.</p>
-            </div>
-
-            <div class="course-card">
-                <div class="course-number">202</div>
-                <div class="course-title">Principles of Microeconomics</div>
-                <div class="course-role">Teaching Assistant • 2022-2023</div>
-                <p>Foundational microeconomic theory and applications.</p>
+        <div class="teaching-inner">
+            <div class="section-eyebrow eyebrow-dark"><span>03</span> Teaching</div>
+            <h2 class="section-title reveal">Courses Taught<br>&amp; Assisted</h2>
+            <div class="courses-grid">
+                <div class="course-card clickable reveal" data-href="econ304.html">
+                    <div class="c-accent"></div>
+                    <div class="c-num">ECON 304 · Spring 2026</div>
+                    <div class="c-title">Intermediate Macroeconomics</div>
+                    <div class="c-role">Instructor of Record</div>
+                    <p class="c-desc">New Keynesian theory, economic fluctuations, inflation dynamics, and growth theory.</p>
+                    <div class="c-arrow">→</div>
+                </div>
+                <div class="course-card clickable reveal reveal-d1" data-href="econ240.html">
+                    <div class="c-accent"></div>
+                    <div class="c-num">ECON 240 · 2024–2025</div>
+                    <div class="c-title">Environmental Economics</div>
+                    <div class="c-role">Instructor of Record</div>
+                    <p class="c-desc">Market failures, externalities, policy instruments, and sustainability economics.</p>
+                    <div class="c-arrow">→</div>
+                </div>
+                <div class="course-card reveal reveal-d2">
+                    <div class="c-accent"></div>
+                    <div class="c-num">ECON 204 · 2023–2024</div>
+                    <div class="c-title">Principles of Macroeconomics</div>
+                    <div class="c-role">Teaching Assistant</div>
+                    <p class="c-desc">Introductory macroeconomics with recitation sections and tutoring support.</p>
+                </div>
+                <div class="course-card reveal reveal-d3">
+                    <div class="c-accent"></div>
+                    <div class="c-num">ECON 202 · 2022–2023</div>
+                    <div class="c-title">Principles of Microeconomics</div>
+                    <div class="c-role">Teaching Assistant</div>
+                    <p class="c-desc">Foundational microeconomic theory, course support, and academic tutoring.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="skills">
-        <div class="skill-category">
-            <h4>Econometric Methods</h4>
-            <ul>
-                <li>Spatial Panel Models</li>
-                <li>Dynamic Panel Data</li>
-                <li>Instrumental Variables</li>
-                <li>Difference-in-Differences</li>
-                <li>Network Econometrics</li>
-            </ul>
+    <!-- ── SKILLS ── -->
+    <div class="skills-strip">
+        <div class="skills-inner">
+            <div class="skill-group reveal">
+                <h4>Econometric Methods</h4>
+                <ul>
+                    <li>Spatial Panel Models</li>
+                    <li>Dynamic Panel Data</li>
+                    <li>Instrumental Variables</li>
+                    <li>Difference-in-Differences</li>
+                    <li>Network Econometrics</li>
+                </ul>
+            </div>
+            <div class="skill-group reveal reveal-d1">
+                <h4>Theoretical Frameworks</h4>
+                <ul>
+                    <li>Post-Keynesian Theory</li>
+                    <li>Structuralist Economics</li>
+                    <li>Growth Theory</li>
+                    <li>Economic Geography</li>
+                    <li>Development Economics</li>
+                </ul>
+            </div>
+            <div class="skill-group reveal reveal-d2">
+                <h4>Data &amp; Software</h4>
+                <ul>
+                    <li>R (primary)</li>
+                    <li>Eurostat Regional Data</li>
+                    <li>Input-Output Tables</li>
+                    <li>Penn World Tables</li>
+                    <li>Trade Networks</li>
+                </ul>
+            </div>
         </div>
-        <div class="skill-category">
-            <h4>Theoretical Frameworks</h4>
-            <ul>
-                <li>Post-Keynesian Theory</li>
-                <li>Structuralist Economics</li>
-                <li>Growth Theory</li>
-                <li>Economic Geography</li>
-                <li>Development Economics</li>
-            </ul>
-        </div>
-        <div class="skill-category">
-            <h4>Data & Analysis</h4>
-            <ul>
-                <li>Regional Economic Data</li>
-                <li>Input-Output Tables</li>
-                <li>Trade Networks</li>
-                <li>Penn World Tables</li>
-                <li>Eurostat Regional Data</li>
-            </ul>
-        </div>
-    </section>
+    </div>
 
+    <!-- ── CONTACT ── -->
     <section id="contact">
-        <h2 class="section-title" style="color: white;">Get In Touch</h2>
-        <div class="contact-grid">
-            <div class="contact-box">
-                <h4>Email</h4>
-                <p>sean.callahan@colostate.edu</p>
-            </div>
-            <div class="contact-box">
-                <h4>Office</h4>
-                <p>Clark C309B<br>
-                Department of Economics<br>
-                Colorado State University</p>
-            </div>
-            <div class="contact-box">
-                <h4>Location</h4>
-                <p>Fort Collins, Colorado<br>
-                United States</p>
+        <div class="c-glow"></div>
+        <div class="contact-inner">
+            <div class="contact-row">
+                <div class="contact-left reveal">
+                    <h2>Let's Talk<br>Economics</h2>
+                    <p>
+                        Whether you're interested in my research, potential collaboration,
+                        or academic opportunities — I'd love to connect.
+                    </p>
+                    <a class="contact-email" href="mailto:sean.callahan@colostate.edu">
+                        sean.callahan@colostate.edu
+                    </a>
+                </div>
+                <div class="contact-cards reveal reveal-d1">
+                    <div class="contact-card">
+                        <div class="cc-label">Office</div>
+                        <div class="cc-value">Clark C309B<br>Department of Economics<br>Colorado State University</div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="cc-label">Location</div>
+                        <div class="cc-value">Fort Collins, Colorado<br>United States</div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="cc-label">Status</div>
+                        <div class="cc-value">PhD Candidate · On the Job Market 2025–2026</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 Sean Callahan • Economics PhD Candidate • Colorado State University</p>
+        <p>© 2025 Sean Callahan</p>
+        <p>Economics PhD Candidate · Colorado State University</p>
     </footer>
 
     <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+    (() => {
+        /* ── Custom cursor ── */
+        const dot  = document.getElementById('cursor');
+        const ring = document.getElementById('cursorRing');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+        (function tick() { rx += (mx-rx)*0.12; ry += (my-ry)*0.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(tick); })();
 
-        // Change nav color on scroll
+        /* ── Nav scroll state ── */
+        const nav = document.getElementById('mainNav');
+        const heroHeight = () => document.querySelector('.hero').offsetHeight;
         window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > window.innerHeight - 100) {
-                nav.style.background = 'var(--primary)';
-                nav.style.padding = '1rem 2rem';
-            } else {
-                nav.style.background = 'transparent';
-                nav.style.padding = '2rem';
-            }
+            nav.classList.toggle('scrolled', window.scrollY > heroHeight() * 0.75);
         });
 
-        // Make course cards clickable
-        const courseCards = document.querySelectorAll('.course-card');
-        if (courseCards.length > 0) {
-            // First card - ECON 304
-            courseCards[0].style.cursor = 'pointer';
-            courseCards[0].addEventListener('click', function() {
-                window.location.href = 'econ304.html';
-            });
+        /* ── Canvas network ── */
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        const N = 55, MAX = 155;
+        let W, H, nodes = [];
+
+        function init() {
+            W = canvas.width  = canvas.offsetWidth;
+            H = canvas.height = canvas.offsetHeight;
+            nodes = Array.from({length: N}, () => ({
+                x: Math.random()*W, y: Math.random()*H,
+                vx: (Math.random()-0.5)*0.45, vy: (Math.random()-0.5)*0.45,
+                r: Math.random()*1.5+0.8,
+            }));
         }
+        init();
+        window.addEventListener('resize', init);
+
+        function frame() {
+            ctx.clearRect(0, 0, W, H);
+            for (let i = 0; i < N; i++) {
+                const a = nodes[i];
+                a.x += a.vx; a.y += a.vy;
+                if (a.x < 0 || a.x > W) a.vx *= -1;
+                if (a.y < 0 || a.y > H) a.vy *= -1;
+                for (let j = i+1; j < N; j++) {
+                    const b = nodes[j];
+                    const dx = a.x-b.x, dy = a.y-b.y;
+                    const d  = Math.sqrt(dx*dx+dy*dy);
+                    if (d < MAX) {
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.strokeStyle = `rgba(96,165,250,${(1-d/MAX)*0.28})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+                ctx.beginPath();
+                ctx.arc(a.x, a.y, a.r, 0, Math.PI*2);
+                ctx.fillStyle = 'rgba(147,197,253,0.65)';
+                ctx.fill();
+            }
+            requestAnimationFrame(frame);
+        }
+        frame();
+
+        /* ── Scroll reveal ── */
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        /* ── Smooth scroll ── */
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        /* ── Course card clicks ── */
+        document.querySelectorAll('.course-card.clickable[data-href]').forEach(card => {
+            card.addEventListener('click', () => { window.location.href = card.dataset.href; });
+        });
+    })();
     </script>
 </body>
 </html>
