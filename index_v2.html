@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sean Callahan | Economics PhD</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --cream:     #f4efe6;
+            --cream2:    #ece6d8;
+            --white:     #fafaf8;
+            --ink:       #19160f;
+            --ink2:      #2a2520;
+            --terra:     #bf4c38;
+            --terra-dim: rgba(191,76,56,0.08);
+            --warm:      #7a6c5c;
+            --muted:     #a09080;
+            --border:    #d0c7b8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+
+        /* ── Nav ────────────────────────────────── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3.5rem;
+            transition: background 0.4s ease, border-color 0.4s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(244,239,230,0.96);
+            backdrop-filter: blur(8px);
+            border-bottom-color: var(--border);
+        }
+
+        .nav-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--ink);
+            text-decoration: none;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--warm);
+            text-decoration: none;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--terra); }
+
+        /* scroll progress */
+        .nav-bar {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 2px;
+            width: 0%;
+            background: var(--terra);
+            transition: width 0.08s linear;
+        }
+
+        /* ── Hero ───────────────────────────────── */
+        .hero {
+            min-height: 100vh;
+            padding: 5.5rem 3.5rem 3.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* dot-grid texture */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+            background-size: 34px 34px;
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .hero-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--warm);
+        }
+
+        .hero-eyebrow em {
+            font-style: normal;
+            color: var(--terra);
+        }
+
+        .hero-coords {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--muted);
+            text-align: right;
+            line-height: 1.9;
+        }
+
+        .hero-main {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 3.5rem;
+            align-items: flex-end;
+            position: relative;
+            z-index: 1;
+            padding: 3rem 0 1rem;
+        }
+
+        .hero-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(5.5rem, 11vw, 10rem);
+            font-weight: 300;
+            line-height: 0.88;
+            letter-spacing: -3px;
+            color: var(--ink);
+            margin-bottom: 2.25rem;
+        }
+
+        .hero-name strong {
+            display: block;
+            font-weight: 600;
+            color: var(--terra);
+            font-style: italic;
+        }
+
+        .hero-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-divider-line {
+            width: 56px;
+            height: 1.5px;
+            background: var(--terra);
+        }
+
+        .hero-divider-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--muted);
+        }
+
+        .hero-bio {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: var(--warm);
+            max-width: 480px;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 0.875rem;
+        }
+
+        .btn-ink {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.75rem 1.75rem;
+            background: var(--ink);
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            border-radius: 2px;
+            letter-spacing: 0.3px;
+            transition: background 0.2s;
+        }
+        .btn-ink:hover { background: var(--terra); }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.75rem 1.75rem;
+            background: transparent;
+            color: var(--ink);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            border-radius: 2px;
+            border: 1.5px solid var(--border);
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .btn-outline:hover { border-color: var(--terra); color: var(--terra); }
+
+        /* Photo */
+        .hero-photo-col { align-self: flex-end; }
+
+        .photo-wrap { position: relative; }
+
+        .hero-photo {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            object-position: center 15%;
+            display: block;
+            filter: grayscale(15%);
+        }
+
+        /* thin terracotta border frame */
+        .photo-wrap::after {
+            content: '';
+            position: absolute;
+            top: 12px; left: 12px;
+            right: -12px; bottom: -12px;
+            border: 1.5px solid var(--terra);
+            z-index: -1;
+        }
+
+        .photo-meta {
+            margin-top: 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Hero bottom strip */
+        .hero-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-scroll-hint {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.64rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-stat {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .stat-item {}
+
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--ink);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted);
+            margin-top: 0.15rem;
+        }
+
+        /* ── Reveal animations ──────────────────── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+                        transform 0.8s cubic-bezier(0.16,1,0.3,1);
+        }
+
+        .reveal.visible { opacity: 1; transform: none; }
+
+        .stagger > * {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1),
+                        transform 0.65s cubic-bezier(0.16,1,0.3,1);
+        }
+
+        .stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0s; }
+        .stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.1s; }
+        .stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.2s; }
+        .stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.3s; }
+
+        /* ── Section base ───────────────────────── */
+        .section {
+            padding: 7rem 3.5rem;
+            position: relative;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.64rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--terra);
+            margin-bottom: 0.65rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.75rem, 5vw, 4.25rem);
+            font-weight: 300;
+            line-height: 1.05;
+            color: var(--ink);
+            margin-bottom: 0.6rem;
+        }
+
+        .section-sub {
+            font-size: 0.875rem;
+            color: var(--muted);
+            margin-bottom: 3.5rem;
+            font-weight: 300;
+        }
+
+        /* ghost number watermark */
+        .ghost {
+            position: absolute;
+            right: 3.5rem;
+            top: 4rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14rem;
+            font-weight: 600;
+            line-height: 1;
+            color: var(--border);
+            opacity: 0.3;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* ── Research ───────────────────────────── */
+        #research { background: var(--white); }
+
+        #research .ghost { color: var(--cream2); opacity: 0.9; }
+
+        .rtabs {
+            display: flex;
+            border-bottom: 1.5px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .rtab {
+            padding: 0.65rem 1.5rem;
+            font-size: 0.83rem;
+            font-weight: 500;
+            color: var(--muted);
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1.5px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .rtab:hover { color: var(--ink); }
+        .rtab.active { color: var(--ink); border-bottom-color: var(--terra); }
+
+        .rpanel { display: none; }
+
+        .rpanel.active {
+            display: grid;
+            grid-template-columns: 1fr 240px;
+            gap: 4rem;
+            animation: riseIn 0.35s ease;
+        }
+
+        @keyframes riseIn {
+            from { opacity:0; transform: translateY(10px); }
+            to   { opacity:1; transform: none; }
+        }
+
+        .rpanel-text p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--warm);
+            font-weight: 300;
+        }
+
+        .rmeta {
+            border-left: 2px solid var(--border);
+            padding-left: 2rem;
+        }
+
+        .rblock { margin-bottom: 1.75rem; }
+        .rblock:last-child { margin-bottom: 0; }
+
+        .rblock-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--terra);
+            margin-bottom: 0.6rem;
+        }
+
+        .rblock ul { list-style: none; }
+
+        .rblock li {
+            font-size: 0.85rem;
+            color: var(--warm);
+            padding: 0.3rem 0;
+            border-bottom: 1px solid var(--cream2);
+            font-weight: 300;
+        }
+
+        .rblock li:last-child { border-bottom: none; }
+
+        /* ── Papers ─────────────────────────────── */
+        #papers {
+            background: var(--ink);
+            color: var(--cream);
+        }
+
+        #papers .ghost       { color: var(--ink2); opacity: 0.8; }
+        #papers .section-label { color: rgba(191,76,56,0.85); }
+        #papers .section-title { color: var(--cream); }
+        #papers .section-sub   { color: var(--muted); }
+
+        .paper-row {
+            display: grid;
+            grid-template-columns: 4rem 1fr auto;
+            align-items: baseline;
+            gap: 2rem;
+            padding: 2.25rem 1rem;
+            border-top: 1px solid var(--ink2);
+            border-radius: 4px;
+            cursor: default;
+            transition: background 0.2s;
+        }
+
+        .paper-row:last-child { border-bottom: 1px solid var(--ink2); }
+
+        .paper-row:hover {
+            background: var(--ink2);
+            margin: 0 -1rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .pr-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--terra);
+            line-height: 1;
+        }
+
+        .pr-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.55rem;
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: 0.4rem;
+            line-height: 1.3;
+        }
+
+        .pr-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--muted);
+        }
+
+        .pr-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            padding: 0.2rem 0.6rem;
+            border: 1px solid rgba(191,76,56,0.5);
+            color: var(--terra);
+            border-radius: 2px;
+            white-space: nowrap;
+            align-self: center;
+        }
+
+        /* ── Teaching ───────────────────────────── */
+        #teaching { background: var(--cream); }
+
+        .timeline {
+            position: relative;
+            max-width: 860px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 110px;
+            top: 8px; bottom: 8px;
+            width: 1px;
+            background: var(--border);
+        }
+
+        .tl-item {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 3.5rem;
+            margin-bottom: 3.5rem;
+            position: relative;
+        }
+
+        .tl-item:last-child { margin-bottom: 0; }
+
+        /* dot on the timeline */
+        .tl-item::after {
+            content: '';
+            position: absolute;
+            left: 110px;
+            top: 10px;
+            width: 9px; height: 9px;
+            background: var(--cream);
+            border: 2px solid var(--terra);
+            border-radius: 50%;
+            transform: translateX(-50%);
+        }
+
+        .tl-year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.67rem;
+            color: var(--muted);
+            text-align: right;
+            padding-top: 0.15rem;
+            line-height: 1.8;
+        }
+
+        .tl-role {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.63rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--terra);
+            margin-bottom: 0.4rem;
+        }
+
+        .tl-course {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 0.3rem;
+            line-height: 1.15;
+        }
+
+        .tl-code {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-bottom: 0.65rem;
+            font-weight: 300;
+        }
+
+        .tl-desc {
+            font-size: 0.9rem;
+            line-height: 1.75;
+            color: var(--warm);
+            font-weight: 300;
+        }
+
+        /* ── Skills ─────────────────────────────── */
+        #skills { background: var(--white); }
+
+        #skills .ghost { color: var(--cream2); opacity: 0.9; }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .sk-group-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--terra);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1.5px solid var(--border);
+        }
+
+        .sk-group ul { list-style: none; }
+
+        .sk-group li {
+            font-size: 0.92rem;
+            color: var(--warm);
+            padding: 0.55rem 0;
+            border-bottom: 1px solid var(--cream2);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 300;
+        }
+
+        .sk-group li::before {
+            content: '';
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: var(--terra);
+            flex-shrink: 0;
+            opacity: 0.5;
+        }
+
+        .sk-group li:last-child { border-bottom: none; }
+
+        /* ── Contact ────────────────────────────── */
+        #contact {
+            background: var(--terra);
+            padding: 8rem 3.5rem;
+            text-align: center;
+        }
+
+        #contact .section-label {
+            color: rgba(244,239,230,0.55);
+        }
+
+        #contact .section-title {
+            color: var(--cream);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        #contact .section-sub {
+            color: rgba(244,239,230,0.65);
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-email {
+            display: inline-block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.4rem, 3vw, 2.25rem);
+            font-weight: 300;
+            color: var(--cream);
+            text-decoration: none;
+            border-bottom: 1.5px solid rgba(244,239,230,0.35);
+            padding-bottom: 0.2rem;
+            transition: border-color 0.25s;
+            margin-bottom: 4rem;
+        }
+
+        .contact-email:hover { border-bottom-color: var(--cream); }
+
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            gap: 5rem;
+        }
+
+        .cd-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(244,239,230,0.5);
+            margin-bottom: 0.4rem;
+        }
+
+        .cd-val {
+            font-size: 0.9rem;
+            color: rgba(244,239,230,0.9);
+            line-height: 1.65;
+            font-weight: 300;
+        }
+
+        /* ── Footer ─────────────────────────────── */
+        footer {
+            background: var(--ink);
+            padding: 1.5rem 3.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ft { font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; color: var(--warm); }
+
+        /* ── Responsive ─────────────────────────── */
+        @media (max-width: 920px) {
+            nav { padding: 0 1.5rem; }
+            .nav-links { gap: 1.5rem; }
+
+            .hero { padding: 5rem 1.5rem 2.5rem; }
+            .hero-main { grid-template-columns: 1fr; gap: 2rem; }
+            .hero-photo-col { display: none; }
+            .hero-name { font-size: 5rem; letter-spacing: -2px; }
+            .hero-stat { gap: 2rem; }
+
+            .section { padding: 5rem 1.5rem; }
+            .ghost { display: none; }
+
+            .rpanel.active { grid-template-columns: 1fr; gap: 2rem; }
+            .rmeta { border-left: none; border-top: 2px solid var(--border); padding-left: 0; padding-top: 1.5rem; }
+
+            .paper-row { grid-template-columns: 3rem 1fr; gap: 1.25rem; }
+            .pr-tag { display: none; }
+
+            .timeline::before { left: 0; }
+            .tl-item { grid-template-columns: 1fr; gap: 0.5rem; }
+            .tl-item::after { left: -1px; }
+            .tl-year { text-align: left; }
+
+            .skills-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+            #contact { padding: 5rem 1.5rem; }
+            .contact-details { flex-direction: column; gap: 2rem; align-items: center; }
+
+            footer { flex-direction: column; gap: 0.35rem; text-align: center; padding: 1.25rem 1.5rem; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-name { font-size: 4rem; }
+            .nav-links { display: none; }
+            .hero-top { flex-direction: column; gap: 0.5rem; }
+            .hero-coords { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav id="nav">
+        <a class="nav-brand" href="#home">Sean Callahan</a>
+        <div class="nav-links">
+            <a href="#research">Research</a>
+            <a href="#papers">Papers</a>
+            <a href="#teaching">Teaching</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-bar" id="nav-bar"></div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-top">
+            <span class="hero-eyebrow">PhD Candidate · <em>Macroeconomics</em></span>
+            <div class="hero-coords">
+                Colorado State University<br>
+                Fort Collins, CO
+            </div>
+        </div>
+
+        <div class="hero-main">
+            <div class="hero-text">
+                <h1 class="hero-name">
+                    Sean
+                    <strong>Callahan</strong>
+                </h1>
+
+                <div class="hero-divider">
+                    <div class="hero-divider-line"></div>
+                    <span class="hero-divider-text">Macroeconomist</span>
+                </div>
+
+                <p class="hero-bio">
+                    Studying regional development, structural transformation,
+                    and how policy shapes economic change. Researching spatial
+                    Keynesian economics and demand spillovers.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#papers"  class="btn-ink">View Research</a>
+                    <a href="cv.pdf"   class="btn-outline">Download CV</a>
+                </div>
+            </div>
+
+            <div class="hero-photo-col">
+                <div class="photo-wrap">
+                    <img src="headshot.jpeg" alt="Sean Callahan" class="hero-photo">
+                </div>
+                <div class="photo-meta">Colorado State · Est. 2022</div>
+            </div>
+        </div>
+
+        <div class="hero-bottom">
+            <span class="hero-scroll-hint">Scroll to explore ↓</span>
+            <div class="hero-stat">
+                <div class="stat-item">
+                    <div class="stat-num">4</div>
+                    <div class="stat-label">Working Papers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">4</div>
+                    <div class="stat-label">Courses Taught</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">3</div>
+                    <div class="stat-label">Research Areas</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research -->
+    <section class="section" id="research">
+        <div class="ghost">02</div>
+
+        <div class="reveal">
+            <div class="section-label">Research Areas</div>
+            <h2 class="section-title">Research Interests</h2>
+            <p class="section-sub">Three intersecting domains of macroeconomic inquiry</p>
+        </div>
+
+        <div class="reveal">
+            <div class="rtabs">
+                <button class="rtab active" onclick="showTab(event,'spatial')">Spatial Keynesianism</button>
+                <button class="rtab"        onclick="showTab(event,'structural')">Structural Transformation</button>
+                <button class="rtab"        onclick="showTab(event,'green')">Green Transition</button>
+            </div>
+
+            <div id="tab-spatial" class="rpanel active">
+                <div class="rpanel-text">
+                    <p>My primary research develops a spatial Keynesian framework examining how fiscal policy effects and demand spillovers propagate across regions. Using European NUTS2 regions during the Global Financial Crisis and Euro debt crisis, I explore how public sector shocks propagate across space and time to produce coordination failures that deepen economic contractions.</p>
+                </div>
+                <div class="rmeta">
+                    <div class="rblock">
+                        <div class="rblock-label">Methods</div>
+                        <ul>
+                            <li>Spatial Panel Models</li>
+                            <li>Network Analysis</li>
+                            <li>Panel Data Methods</li>
+                        </ul>
+                    </div>
+                    <div class="rblock">
+                        <div class="rblock-label">Software</div>
+                        <ul><li>R</li></ul>
+                    </div>
+                    <div class="rblock">
+                        <div class="rblock-label">Framework</div>
+                        <ul>
+                            <li>Keynesian</li>
+                            <li>Spatial Economics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-structural" class="rpanel">
+                <div class="rpanel-text">
+                    <p>I examine how economies' industrial composition evolves and what role policy plays in steering this change. My work bridges theoretical frameworks with empirical analysis to understand production linkages, institutional capacity, and the mechanisms of economic development in both advanced and emerging economies.</p>
+                </div>
+                <div class="rmeta">
+                    <div class="rblock">
+                        <div class="rblock-label">Methods</div>
+                        <ul>
+                            <li>Input-Output Analysis</li>
+                            <li>Dynamic Panel Data</li>
+                            <li>Instrumental Variables</li>
+                        </ul>
+                    </div>
+                    <div class="rblock">
+                        <div class="rblock-label">Framework</div>
+                        <ul>
+                            <li>Structuralist</li>
+                            <li>Institutional</li>
+                            <li>Development Econ.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-green" class="rpanel">
+                <div class="rpanel-text">
+                    <p>Through demand-driven models and simulations, I explore how economies can navigate the energy transition while maintaining employment and growth. This research investigates the macroeconomic dynamics of capacity investment and the distributional implications of climate policy.</p>
+                </div>
+                <div class="rmeta">
+                    <div class="rblock">
+                        <div class="rblock-label">Methods</div>
+                        <ul>
+                            <li>Simulation Models</li>
+                            <li>Diff-in-Differences</li>
+                            <li>Input-Output Analysis</li>
+                        </ul>
+                    </div>
+                    <div class="rblock">
+                        <div class="rblock-label">Framework</div>
+                        <ul>
+                            <li>Post-Keynesian</li>
+                            <li>Growth Theory</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Papers -->
+    <section class="section" id="papers">
+        <div class="ghost">03</div>
+
+        <div class="reveal">
+            <div class="section-label">Working Papers</div>
+            <h2 class="section-title">Research Output</h2>
+            <p class="section-sub">Current and ongoing scholarly work</p>
+        </div>
+
+        <div class="reveal">
+            <div class="paper-row">
+                <div class="pr-num">01</div>
+                <div>
+                    <div class="pr-title">Spatial Keynesianism: Demand Spillovers and Public Finance</div>
+                    <div class="pr-meta">Sean Callahan &nbsp;·&nbsp; Job Market Paper &nbsp;·&nbsp; 2025</div>
+                </div>
+                <div class="pr-tag">JMP</div>
+            </div>
+
+            <div class="paper-row">
+                <div class="pr-num">02</div>
+                <div>
+                    <div class="pr-title">A Theoretical Framework for Spatial Keynesianism</div>
+                    <div class="pr-meta">Sean Callahan &nbsp;·&nbsp; Working Paper &nbsp;·&nbsp; 2025</div>
+                </div>
+                <div class="pr-tag">WP</div>
+            </div>
+
+            <div class="paper-row">
+                <div class="pr-num">03</div>
+                <div>
+                    <div class="pr-title">The Collapse of the Social Partnership and Structural Change in the Celtic Tiger</div>
+                    <div class="pr-meta">Sean Callahan &nbsp;·&nbsp; 2024</div>
+                </div>
+                <div class="pr-tag">WP</div>
+            </div>
+
+            <div class="paper-row">
+                <div class="pr-num">04</div>
+                <div>
+                    <div class="pr-title">Demand-driven Model of Energy Capacity Investment</div>
+                    <div class="pr-meta">Sean Callahan &nbsp;·&nbsp; 2024</div>
+                </div>
+                <div class="pr-tag">WP</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teaching -->
+    <section class="section" id="teaching">
+        <div class="ghost">04</div>
+
+        <div class="reveal">
+            <div class="section-label">Teaching</div>
+            <h2 class="section-title">Teaching Experience</h2>
+            <p class="section-sub">Courses taught and assisted at Colorado State University</p>
+        </div>
+
+        <div class="timeline stagger">
+            <div class="tl-item">
+                <div class="tl-year">Spring<br>2026</div>
+                <div>
+                    <div class="tl-role">Instructor of Record</div>
+                    <div class="tl-course">Intermediate Macroeconomics</div>
+                    <div class="tl-code">ECON 304</div>
+                    <p class="tl-desc">New Keynesian theory, economic fluctuations, inflation, and growth theory.</p>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-year">2024–<br>2025</div>
+                <div>
+                    <div class="tl-role">Instructor of Record</div>
+                    <div class="tl-course">Environmental Economics</div>
+                    <div class="tl-code">ECON 240</div>
+                    <p class="tl-desc">Market failures, policy instruments, and sustainability economics.</p>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-year">2023–<br>2024</div>
+                <div>
+                    <div class="tl-role">Teaching Assistant</div>
+                    <div class="tl-course">Principles of Macroeconomics</div>
+                    <div class="tl-code">ECON 204</div>
+                    <p class="tl-desc">Introductory macroeconomics with recitation sections and tutoring.</p>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-year">2022–<br>2023</div>
+                <div>
+                    <div class="tl-role">Teaching Assistant</div>
+                    <div class="tl-course">Principles of Microeconomics</div>
+                    <div class="tl-code">ECON 202</div>
+                    <p class="tl-desc">Foundational microeconomic theory and applications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="section" id="skills">
+        <div class="ghost">05</div>
+
+        <div class="reveal">
+            <div class="section-label">Toolkit</div>
+            <h2 class="section-title">Methods &amp; Tools</h2>
+            <p class="section-sub">Technical and theoretical competencies</p>
+        </div>
+
+        <div class="skills-grid stagger">
+            <div class="sk-group">
+                <div class="sk-group-label">Econometric Methods</div>
+                <ul>
+                    <li>Spatial Panel Models</li>
+                    <li>Dynamic Panel Data</li>
+                    <li>Instrumental Variables</li>
+                    <li>Diff-in-Differences</li>
+                    <li>Network Econometrics</li>
+                </ul>
+            </div>
+            <div class="sk-group">
+                <div class="sk-group-label">Theoretical Frameworks</div>
+                <ul>
+                    <li>Post-Keynesian Theory</li>
+                    <li>Structuralist Economics</li>
+                    <li>Growth Theory</li>
+                    <li>Economic Geography</li>
+                    <li>Development Economics</li>
+                </ul>
+            </div>
+            <div class="sk-group">
+                <div class="sk-group-label">Data &amp; Analysis</div>
+                <ul>
+                    <li>R</li>
+                    <li>Input-Output Tables</li>
+                    <li>Trade Networks</li>
+                    <li>Penn World Tables</li>
+                    <li>Eurostat Regional Data</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact">
+        <div class="reveal">
+            <div class="section-label">Get In Touch</div>
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="section-sub">Open to collaboration, discussion, and correspondence</p>
+        </div>
+
+        <div class="reveal">
+            <a href="mailto:sean.callahan@colostate.edu" class="contact-email">
+                sean.callahan@colostate.edu
+            </a>
+        </div>
+
+        <div class="contact-details stagger">
+            <div>
+                <div class="cd-label">Office</div>
+                <div class="cd-val">Clark C309B<br>Department of Economics</div>
+            </div>
+            <div>
+                <div class="cd-label">University</div>
+                <div class="cd-val">Colorado State University<br>Fort Collins, CO</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <span class="ft">© 2025 Sean Callahan</span>
+        <span class="ft">Economics PhD · Colorado State University</span>
+    </footer>
+
+    <script>
+        // Tab switching
+        function showTab(e, id) {
+            document.querySelectorAll('.rpanel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + id).classList.add('active');
+            e.target.classList.add('active');
+        }
+
+        // Nav scroll + progress bar
+        const nav    = document.getElementById('nav');
+        const navBar = document.getElementById('nav-bar');
+
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            navBar.style.width = (pct * 100) + '%';
+        }, { passive: true });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        // Scroll reveal
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
