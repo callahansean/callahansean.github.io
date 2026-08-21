@@ -415,6 +415,33 @@
             margin-top: 0.5rem;
         }
 
+        .grade-scale {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .grade-scale-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-left: 3px solid var(--secondary);
+            padding: 0.9rem 1rem;
+        }
+
+        .grade-scale-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .grade-scale-range {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 0.2rem;
+        }
+
         /* Resources */
         .resource-grid {
             display: grid;
@@ -545,6 +572,10 @@
             .grading-grid {
                 grid-template-columns: 1fr;
             }
+
+            .grade-scale {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
@@ -668,7 +699,7 @@
                     <div class="col-date" data-label="Date">9/14</div>
                     <div class="col-topic" data-label="Topics">The IS-LM Model Extended</div>
                     <div class="col-reading" data-label="Readings">6, R3</div>
-                    <div class="col-assignment" data-label="Assignments">PS2; <a href="https://www.youtube.com/watch?v=yL_PQ81vf74">GFC Documentary</a></div>
+                    <div class="col-assignment" data-label="Assignments">PS2; <a href="https://www.youtube.com/watch?v=5sn8dqhPEg4">GFC Documentary</a></div>
                 </div>
 
                 <div class="section-divider">Medium-Run</div>
@@ -822,6 +853,21 @@
                 will not increase.
             </p>
 
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); margin-top: 3rem;">Grade Scale</h3>
+
+            <div class="grade-scale">
+                <div class="grade-scale-item"><div class="grade-scale-letter">A+</div><div class="grade-scale-range">&gt; 96.67</div></div>
+                <div class="grade-scale-item"><div class="grade-scale-letter">A</div><div class="grade-scale-range">93&ndash;97</div></div>
+                <div class="grade-scale-item"><div class="grade-scale-letter">A&minus;</div><div class="grade-scale-range">90&ndash;93</div></div>
+                <div class="grade-scale-item"><div class="grade-scale-letter">B+</div><div class="grade-scale-range">86&ndash;90</div></div>
+                <div class="grade-scale-item"><div class="grade-scale-letter">B</div><div class="grade-scale-range">83&ndash;86</div></div>
+                <div class="grade-scale-item"><div class="grade-scale-letter">B&minus;</div><div class="grade-scale-range">80&ndash;83</div></div>
+                <div class="grade-scale-item"><div class="grade-scale-letter">C+</div><div class="grade-scale-range">76&ndash;80</div></div>
+                <div class="grade-scale-item"><div class="grade-scale-letter">C</div><div class="grade-scale-range">70&ndash;76</div></div>
+                <div class="grade-scale-item"><div class="grade-scale-letter">D</div><div class="grade-scale-range">60&ndash;70</div></div>
+                <div class="grade-scale-item"><div class="grade-scale-letter">F</div><div class="grade-scale-range">0&ndash;60</div></div>
+            </div>
+
             <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); margin-top: 3rem;">Problem Sets</h3>
 
             <div class="assignments-grid">
@@ -895,6 +941,17 @@
                 </div>
 
                 <div class="resource-card">
+                    <h4>Morgan Library</h4>
+                    <p>The Services Desk provides research support (970-491-1841) and technical support (970-491-7276). You can also contact a librarian at <a href="https://lib.colostate.edu/services/ask-us/">Ask Us!</a> or find a <a href="https://libguides.colostate.edu/">research guide</a>.</p>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Additional Syllabus Information &amp; Policies</h4>
+                    <p>University policies and resources for challenges you may encounter during the semester.<br>
+                    <a href="https://col.st/2FA2g">https://col.st/2FA2g</a></p>
+                </div>
+
+                <div class="resource-card">
                     <h4>Additional Resources</h4>
                     <p>Congressional Budget Office (CBO) • Bureau of Economic Analysis (BEA) • Federal Reserve Board of Governors • International Monetary Fund (IMF) Data</p>
                 </div>
@@ -932,7 +989,7 @@
 
                 <div class="policy-item">
                     <h3>Illness &amp; Accommodations</h3>
-                    <p>Please note that the CSU Health Network does not provide excuse notes for students who miss classes, assignments, or tests because of short-term illness, injury, or mental health problems. Students who require accommodations should contact Student Disability Services as early in the semester as possible. I will do my best to be accommodating in an equitable manner as life throws unexpected challenges toward all of us.</p>
+                    <p>Please note that the <a href="https://health.colostate.edu/excuse-notes/">CSU Health Network does not provide excuse notes</a> for students who miss classes, assignments, or tests because of short-term illness, injury, or mental health problems. Students who require accommodations should contact Student Disability Services as early in the semester as possible. I will do my best to be accommodating in an equitable manner as life throws unexpected challenges toward all of us.</p>
                 </div>
 
                 <div class="policy-item">
