@@ -3,21 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sean Callahan | Economics PhD Candidate</title>
-    <meta name="description" content="Sean Callahan is an economics PhD candidate at Colorado State University working on spatial Keynesian macroeconomics, structural transformation, and the macroeconomics of the green transition. On the academic job market, 2026-27.">
-    <meta name="author" content="Sean Callahan">
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Sean Callahan | Economics PhD Candidate">
-    <meta property="og:description" content="Spatial Keynesian macroeconomics, structural transformation, and the green transition. On the academic job market, 2026-27.">
-    <meta property="og:image" content="https://callahansean.github.io/headshot.jpeg">
-    <meta property="og:url" content="https://callahansean.github.io/">
-    <meta name="twitter:card" content="summary_large_image">
-
+    <title>Sean Callahan | Economics PhD</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
-
+        
         * {
             margin: 0;
             padding: 0;
@@ -95,43 +85,12 @@
             font-weight: 300;
         }
 
-        .hero-affiliation {
-            font-size: 1rem;
-            opacity: 0.75;
-            letter-spacing: 0.5px;
-        }
-
         .hero-description {
             font-size: 1.1rem;
             line-height: 1.8;
             margin-top: 2rem;
             opacity: 0.9;
             max-width: 500px;
-        }
-
-        /* Job market availability badge */
-        .availability {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            align-self: flex-start;
-            background: rgba(224, 122, 95, 0.15);
-            border: 1px solid var(--secondary);
-            color: var(--secondary);
-            padding: 0.5rem 1rem;
-            margin-bottom: 1.5rem;
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        .availability::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--secondary);
         }
 
         .headshot-container {
@@ -154,7 +113,6 @@
             display: flex;
             gap: 1rem;
             margin-top: 2rem;
-            flex-wrap: wrap;
         }
 
         .quick-links a {
@@ -196,7 +154,6 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: color 0.3s ease;
-            mix-blend-mode: difference;
         }
 
         nav a:hover {
@@ -264,11 +221,6 @@
             color: var(--secondary);
         }
 
-        .research-sidebar h4 + h4,
-        .research-sidebar ul + h4 {
-            margin-top: 2rem;
-        }
-
         .research-sidebar ul {
             list-style: none;
         }
@@ -276,7 +228,6 @@
         .research-sidebar li {
             padding: 0.5rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.95rem;
         }
 
         .research-sidebar li:last-child {
@@ -288,56 +239,22 @@
             background: var(--light);
         }
 
-        /* Featured job market paper */
-        .jmp-feature {
-            background: white;
-            border-left: 8px solid var(--secondary);
-            padding: 2.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .jmp-label {
-            display: inline-block;
-            background: var(--secondary);
-            color: white;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 0.4rem 0.9rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .jmp-feature h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--primary);
-            line-height: 1.25;
-            margin-bottom: 0.75rem;
-        }
-
-        .jmp-meta {
-            color: var(--accent);
-            font-weight: 500;
-        }
-
-        .papers-subtitle {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-        }
-
         .papers-grid {
             display: grid;
             gap: 2rem;
         }
 
-        /* Papers have no PDFs yet, so these are plain text, not links */
         .paper-card {
             background: white;
             padding: 2rem;
-            border-left: 5px solid var(--accent);
+            border-left: 5px solid var(--secondary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .paper-card:hover {
+            transform: translateX(10px);
+            box-shadow: -10px 10px 30px rgba(0,0,0,0.1);
         }
 
         .paper-title {
@@ -356,13 +273,6 @@
         .paper-year {
             color: #666;
             font-size: 0.9rem;
-        }
-
-        .papers-note {
-            margin-top: 2rem;
-            font-size: 0.95rem;
-            color: #666;
-            font-style: italic;
         }
 
         /* Teaching Section */
@@ -393,16 +303,11 @@
             z-index: 0;
         }
 
-        /* Only cards with a real course page react to hover and take a pointer */
-        .course-card.has-page {
-            cursor: pointer;
-        }
-
-        .course-card.has-page:hover::before {
+        .course-card:hover::before {
             width: 100%;
         }
 
-        .course-card.has-page:hover {
+        .course-card:hover {
             color: white;
             border-color: var(--secondary);
         }
@@ -436,14 +341,28 @@
             opacity: 0.8;
         }
 
-        .course-link {
-            display: inline-block;
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        /* Skills Section */
+        .skills {
+            background: var(--primary);
+            color: white;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .skill-category h4 {
             color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 0.5rem 0;
+            opacity: 0.9;
         }
 
         /* Contact Section */
@@ -480,12 +399,6 @@
         .contact-box p {
             opacity: 0.9;
             line-height: 1.6;
-        }
-
-        .contact-box a {
-            color: inherit;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255,255,255,0.4);
         }
 
         /* Footer */
@@ -542,34 +455,14 @@
                 padding: 4rem 2rem;
             }
 
-            .jmp-feature {
-                padding: 1.75rem;
-            }
-
-            .jmp-feature h3 {
-                font-size: 1.5rem;
-            }
-
             .research-layout,
             .teaching-grid,
             .contact-grid {
                 grid-template-columns: 1fr;
             }
 
-            nav {
-                gap: 1rem;
-                padding: 1rem;
-            }
-
-            nav a {
-                font-size: 0.75rem;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: none !important;
+            .skills {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -584,18 +477,15 @@
 
     <div class="hero">
         <div class="hero-left">
-            <div class="availability">On the job market &mdash; 2026&ndash;27</div>
             <div class="hero-subtitle">Economics PhD Candidate</div>
             <h1>Sean<br>Callahan</h1>
-            <div class="hero-affiliation">Department of Economics &bull; Colorado State University</div>
             <p class="hero-description">
-                I study how demand shocks travel across regions. My work develops a
-                spatial Keynesian framework for understanding why fiscal contractions in
-                one place deepen downturns in another &mdash; and what that implies for
-                how public finance should be organized across space.
+                Macroeconomist studying regional development, structural transformation, 
+                and how policy shapes economic change. Currently researching spatial 
+                Keynesian economics and demand spillovers at Colorado State University.
             </p>
             <div class="quick-links">
-                <a href="#papers">Job Market Paper</a>
+                <a href="#papers">View Research</a>
                 <a href="cv.pdf">Download CV</a>
             </div>
         </div>
@@ -604,166 +494,165 @@
                 <img src="headshot.jpeg" alt="Sean Callahan" class="headshot">
             </div>
         </div>
-        <div class="scroll-indicator">Scroll to explore &darr;</div>
+        <div class="scroll-indicator">Scroll to explore ↓</div>
     </div>
 
     <section id="research">
-        <h2 class="section-title">Research</h2>
+        <h2 class="section-title">Research Interests</h2>
         <div class="research-layout">
             <div class="research-main">
                 <h3>Spatial Keynesian Economics</h3>
                 <p>
-                    My primary research develops a spatial Keynesian framework examining how
-                    fiscal policy effects and demand spillovers propagate across regions.
-                    Using European NUTS2 regions during the Global Financial Crisis and the
-                    Euro debt crisis, I show how public sector shocks travel across space and
-                    time to produce coordination failures that deepen economic contractions.
+                    My primary research develops a spatial Keynesian framework examining how 
+                    fiscal policy effects and demand spillovers propagate across regions. 
+                    Using European NUTS2 regions during the Global Financial Crisis and Euro 
+                    debt crisis, I explore how public sector shocks propagate across space and time
+                    to produce coordination failures that deepen economic contractions.
                 </p>
 
-                <h3>Structural Transformation &amp; Development</h3>
+                <h3>Structural Transformation & Development</h3>
                 <p>
-                    I examine how the industrial composition of economies evolves, and what
-                    role policy plays in steering that change. This work bridges theoretical
-                    frameworks with empirical analysis to understand production linkages,
-                    institutional capacity, and the mechanisms of development in both advanced
-                    and emerging economies.
+                    I examine how economies' industrial composition evolves and what role 
+                    policy plays in steering this change. My work bridges theoretical frameworks 
+                    with empirical analysis to understand production linkages, institutional 
+                    capacity, and the mechanisms of economic development in both advanced and 
+                    emerging economies.
                 </p>
 
                 <h3>Green Transition Macroeconomics</h3>
                 <p>
-                    Through demand-driven models and simulation, I explore how economies can
-                    navigate the energy transition while sustaining employment and growth,
-                    focusing on the dynamics of capacity investment and the distributional
-                    consequences of climate policy.
+                    Through demand-driven models and simulations, I explore how economies can 
+                    navigate the energy transition while maintaining employment and growth. 
+                    This research investigates the macroeconomic dynamics of capacity investment 
+                    and the distributional implications of climate policy.
                 </p>
             </div>
-
             <div class="research-sidebar">
-                <h4>Methods</h4>
+                <h4>Methods & Tools</h4>
                 <ul>
                     <li>Spatial Econometrics</li>
-                    <li>Panel &amp; Dynamic Panel Data</li>
-                    <li>Instrumental Variables</li>
-                    <li>Difference-in-Differences</li>
-                    <li>Input&ndash;Output Analysis</li>
-                    <li>Network Econometrics</li>
+                    <li>Panel Data Methods</li>
+                    <li>Input-Output Analysis</li>
+                    <li>Network Analysis</li>
                 </ul>
 
-                <h4>Frameworks</h4>
-                <ul>
-                    <li>Post-Keynesian Theory</li>
-                    <li>Structuralist Economics</li>
-                    <li>Economic Geography</li>
-                    <li>Growth &amp; Development Theory</li>
-                    <li>Institutional Economics</li>
-                </ul>
-
-                <h4>Data</h4>
-                <ul>
-                    <li>Eurostat Regional (NUTS2)</li>
-                    <li>Input&ndash;Output Tables</li>
-                    <li>Penn World Tables</li>
-                    <li>Trade Networks</li>
-                </ul>
-
-                <h4>Software</h4>
+                <h4 style="margin-top: 2rem;">Software</h4>
                 <ul>
                     <li>R</li>
-                    <li>Quarto / R Markdown</li>
+                </ul>
+
+                <h4 style="margin-top: 2rem;">Approaches</h4>
+                <ul>
+                    <li>Keynesian</li>
+                    <li>Structuralist</li>
+                    <li>Institutional</li>
+                    <li>Spatial Economics</li>
                 </ul>
             </div>
         </div>
     </section>
 
     <section id="papers">
-        <h2 class="section-title">Papers</h2>
-
-        <div class="jmp-feature">
-            <div class="jmp-label">Job Market Paper</div>
-            <h3>Spatial Keynesianism: Demand Spillovers and Public Finance</h3>
-            <div class="jmp-meta">Sean Callahan &bull; 2026</div>
-        </div>
-
-        <h3 class="papers-subtitle">Other Working Papers</h3>
+        <h2 class="section-title">Working Papers</h2>
         <div class="papers-grid">
+            <div class="paper-card">
+                <div class="paper-title">Spatial Keynesianism: Demand Spillovers and Public Finance</div>
+                <div class="paper-author">Sean Callahan</div>
+                <div class="paper-year">Job Market Paper • 2025</div>
+            </div>
+
             <div class="paper-card">
                 <div class="paper-title">A Theoretical Framework for Spatial Keynesianism</div>
                 <div class="paper-author">Sean Callahan</div>
-                <div class="paper-year">Working Paper &bull; 2025</div>
+                <div class="paper-year">Working Paper • 2025</div>
             </div>
 
             <div class="paper-card">
                 <div class="paper-title">The Collapse of the Social Partnership and Structural Change in the Celtic Tiger</div>
                 <div class="paper-author">Sean Callahan</div>
-                <div class="paper-year">Working Paper &bull; 2024</div>
+                <div class="paper-year">2024</div>
             </div>
 
             <div class="paper-card">
                 <div class="paper-title">Demand-driven Model of Energy Capacity Investment</div>
                 <div class="paper-author">Sean Callahan</div>
-                <div class="paper-year">Working Paper &bull; 2024</div>
+                <div class="paper-year">2024</div>
             </div>
         </div>
-
-        <p class="papers-note">Drafts available on request &mdash; please get in touch.</p>
     </section>
 
     <section id="teaching">
-        <h2 class="section-title">Teaching</h2>
+        <h2 class="section-title">Teaching Experience</h2>
         <div class="teaching-grid">
-            <div class="course-card has-page" data-href="econ304.html">
+            <div class="course-card">
                 <div class="course-number">304</div>
                 <div class="course-title">Intermediate Macroeconomics</div>
-                <div class="course-role">Instructor of Record &bull; Spring &amp; Fall 2026</div>
+                <div class="course-role">Instructor of Record • Spring 2026</div>
                 <p>New Keynesian theory, economic fluctuations, inflation, and growth theory.</p>
-                <span class="course-link">View course page &rarr;</span>
             </div>
 
             <div class="course-card">
                 <div class="course-number">240</div>
                 <div class="course-title">Environmental Economics</div>
-                <div class="course-role">Instructor of Record &bull; 2024&ndash;2025</div>
+                <div class="course-role">Instructor of Record • 2024-2025</div>
                 <p>Market failures, policy instruments, and sustainability economics.</p>
             </div>
 
             <div class="course-card">
                 <div class="course-number">204</div>
                 <div class="course-title">Principles of Macroeconomics</div>
-                <div class="course-role">Teaching Assistant &bull; 2023&ndash;2024</div>
+                <div class="course-role">Teaching Assistant • 2023-2024</div>
                 <p>Introductory macroeconomics with recitation sections and tutoring.</p>
             </div>
 
             <div class="course-card">
                 <div class="course-number">202</div>
                 <div class="course-title">Principles of Microeconomics</div>
-                <div class="course-role">Teaching Assistant &bull; 2022&ndash;2023</div>
+                <div class="course-role">Teaching Assistant • 2022-2023</div>
                 <p>Foundational microeconomic theory and applications.</p>
             </div>
         </div>
     </section>
 
-    <!--
-    REFERENCES — uncomment and fill in before sending the site to search committees.
-    Left commented rather than filled with placeholders so nothing fake ships.
-
-    <section id="references">
-        <h2 class="section-title">References</h2>
-        <div class="teaching-grid">
-            <div class="course-card">
-                <div class="course-title">Name</div>
-                <div class="course-role">Title &bull; Institution</div>
-                <p>email@institution.edu</p>
-            </div>
+    <section class="skills">
+        <div class="skill-category">
+            <h4>Econometric Methods</h4>
+            <ul>
+                <li>Spatial Panel Models</li>
+                <li>Dynamic Panel Data</li>
+                <li>Instrumental Variables</li>
+                <li>Difference-in-Differences</li>
+                <li>Network Econometrics</li>
+            </ul>
+        </div>
+        <div class="skill-category">
+            <h4>Theoretical Frameworks</h4>
+            <ul>
+                <li>Post-Keynesian Theory</li>
+                <li>Structuralist Economics</li>
+                <li>Growth Theory</li>
+                <li>Economic Geography</li>
+                <li>Development Economics</li>
+            </ul>
+        </div>
+        <div class="skill-category">
+            <h4>Data & Analysis</h4>
+            <ul>
+                <li>Regional Economic Data</li>
+                <li>Input-Output Tables</li>
+                <li>Trade Networks</li>
+                <li>Penn World Tables</li>
+                <li>Eurostat Regional Data</li>
+            </ul>
         </div>
     </section>
-    -->
 
     <section id="contact">
         <h2 class="section-title" style="color: white;">Get In Touch</h2>
         <div class="contact-grid">
             <div class="contact-box">
                 <h4>Email</h4>
-                <p><a href="mailto:sean.callahan@colostate.edu">sean.callahan@colostate.edu</a></p>
+                <p>sean.callahan@colostate.edu</p>
             </div>
             <div class="contact-box">
                 <h4>Office</h4>
@@ -780,27 +669,41 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Sean Callahan &bull; Economics PhD Candidate &bull; Colorado State University</p>
+        <p>&copy; 2025 Sean Callahan • Economics PhD Candidate • Colorado State University</p>
     </footer>
 
     <script>
-        // Smooth scroll for in-page anchors
-        document.querySelectorAll('nav a[href^="#"], .quick-links a[href^="#"]').forEach(anchor => {
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
 
-        // Course cards navigate only when they declare a real page
-        document.querySelectorAll('.course-card[data-href]').forEach(card => {
-            card.addEventListener('click', function () {
-                window.location.href = this.dataset.href;
-            });
+        // Change nav color on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > window.innerHeight - 100) {
+                nav.style.background = 'var(--primary)';
+                nav.style.padding = '1rem 2rem';
+            } else {
+                nav.style.background = 'transparent';
+                nav.style.padding = '2rem';
+            }
         });
+
+        // Make course cards clickable
+        const courseCards = document.querySelectorAll('.course-card');
+        if (courseCards.length > 0) {
+            // First card - ECON 304
+            courseCards[0].style.cursor = 'pointer';
+            courseCards[0].addEventListener('click', function() {
+                window.location.href = 'econ304.html';
+            });
+        }
     </script>
 </body>
 </html>
