@@ -405,7 +405,8 @@
         }
 
         /* darker label on the amber JMP band */
-        .band-amber details.abstract { margin-top: 1.25rem; }
+        .band-amber details.abstract { margin-top: 0; }
+        .band-amber details.abstract p { max-width: 82ch; }
         .band-amber details.abstract summary { color: var(--ink); border-bottom-color: rgba(36, 27, 20, 0.35); }
         .band-amber details.abstract summary:hover { border-bottom-color: var(--ink); }
 
@@ -556,7 +557,7 @@
             induce structural change while compressing wage inequality.
         </p>
         <p class="actions">
-            <a class="btn" href="#research">Read the job market paper</a>
+            <a class="btn" href="Production_Networks__Transmission__and_Policy.pdf" target="_blank" rel="noopener">Read the job market paper</a>
             <a class="plain-link" href="Sean-Callahan-CV.pdf" target="_blank" rel="noopener">Curriculum vitae (PDF)</a>
         </p>
         </div>
@@ -579,30 +580,6 @@
                 <p class="actions">
                     <a class="plain-link" href="Production_Networks__Transmission__and_Policy.pdf" target="_blank" rel="noopener">Download</a>
                 </p>
-                <details class="abstract">
-                    <summary>Abstract</summary>
-                    <p>How far do fiscal shocks travel through a production network? I answer
-                        this question for the euro area by applying the network granular instrumental
-                        variable (N-GIV) approach of Chodorow-Reich et al. (2026) to FIGARO inter-country
-                        input-output tables covering 1,178 country-sectors over the period
-                        2010&ndash;2019. The method identifies two reduced-form propagation parameters:
-                        the share of a shock transmitted upstream from customers to suppliers
-                        (the demand channel) and the share transmitted downstream from suppliers
-                        to customers (the supply channel). I develop a static production network
-                        model with monopolistic competition and constant returns, that predicts an
-                        asymmetric response: quantities respond to demand shocks only through the
-                        demand channel, while prices respond to cost shocks only through the supply
-                        channel. I then test the model empirically, confirming these results. Each link
-                        in the network passes on 41 percent of a demand shock to employment and
-                        32 percent to gross output, while 40 percent of a cost shock passes through
-                        to relative prices; the cross-channel parameters are statistically indistinguishable
-                        from zero. The implied propagation multipliers show that 17 percent
-                        of the employment response and 12 percent of the gross output response to
-                        government spending arise from network transmission beyond the sector where
-                        the spending lands first. Intuitively, sectors that are further away through
-                        the network see almost no effect from the shock, implying that the sectoral
-                        composition of fiscal policy matters for its aggregate effects.</p>
-                </details>
             </div>
 
             <figure class="result">
@@ -618,6 +595,31 @@
                     One sentence stating the finding the plot shows, not the axes.
                 </figcaption>
             </figure>
+
+            <details class="abstract">
+                <summary>Abstract</summary>
+                <p>How far do fiscal shocks travel through a production network? I answer
+                    this question for the euro area by applying the network granular instrumental
+                    variable (N-GIV) approach of Chodorow-Reich et al. (2026) to FIGARO inter-country
+                    input-output tables covering 1,178 country-sectors over the period
+                    2010&ndash;2019. The method identifies two reduced-form propagation parameters:
+                    the share of a shock transmitted upstream from customers to suppliers
+                    (the demand channel) and the share transmitted downstream from suppliers
+                    to customers (the supply channel). I develop a static production network
+                    model with monopolistic competition and constant returns, that predicts an
+                    asymmetric response: quantities respond to demand shocks only through the
+                    demand channel, while prices respond to cost shocks only through the supply
+                    channel. I then test the model empirically, confirming these results. Each link
+                    in the network passes on 41 percent of a demand shock to employment and
+                    32 percent to gross output, while 40 percent of a cost shock passes through
+                    to relative prices; the cross-channel parameters are statistically indistinguishable
+                    from zero. The implied propagation multipliers show that 17 percent
+                    of the employment response and 12 percent of the gross output response to
+                    government spending arise from network transmission beyond the sector where
+                    the spending lands first. Intuitively, sectors that are further away through
+                    the network see almost no effect from the shock, implying that the sectoral
+                    composition of fiscal policy matters for its aggregate effects.</p>
+            </details>
             </div>
         </div>
     </section>
