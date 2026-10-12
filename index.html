@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sean Callahan | Economics PhD Candidate</title>
-    <meta name="description" content="Sean Callahan is an economics PhD candidate at Colorado State University working on fiscal policy transmission through production networks, structural transformation, and the macroeconomics of the green transition. On the academic job market, 2026-27.">
+    <meta name="description" content="Sean Callahan is an economics PhD candidate at Colorado State University working on fiscal policy transmission through production networks, structural transformation, and industrial policy. On the academic job market, 2026-27.">
     <meta name="author" content="Sean Callahan">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Sean Callahan | Economics PhD Candidate">
-    <meta property="og:description" content="Fiscal transmission in production networks, structural transformation, and the green transition. On the academic job market, 2026-27.">
+    <meta property="og:description" content="Fiscal transmission in production networks, structural transformation, and industrial policy. On the academic job market, 2026-27.">
     <meta property="og:image" content="https://callahansean.github.io/headshot.jpeg">
     <meta property="og:url" content="https://callahansean.github.io/">
     <meta name="twitter:card" content="summary_large_image">
@@ -223,9 +223,25 @@
             border-top: none;
         }
 
+        /* heading-only band that introduces the amber block */
+        .band-heading {
+            padding-block: clamp(2.5rem, 6vh, 4rem) 0;
+            border-top: 1px solid var(--rule);
+        }
+
+        .band-heading + .band-amber { border-top: none; }
+
+        /* no hairline where a plain band meets the amber block */
+        .band-amber + .band { border-top: none; }
+
         h2.section-title {
             font-size: clamp(1.4rem, 1.2rem + 1vw, 2rem);
             margin-bottom: clamp(2rem, 4vh, 3rem);
+        }
+
+        /* second heading inside the same band (e.g. Works in progress) */
+        .paper + h2.section-title {
+            margin-top: clamp(3rem, 7vh, 4.5rem);
         }
 
         /* ---------- Research ---------- */
@@ -253,7 +269,7 @@
             display: grid;
             grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
             gap: clamp(2rem, 5vw, 4rem);
-            align-items: center;
+            align-items: start;
         }
 
         .jmp-kicker {
@@ -276,6 +292,10 @@
             font-weight: 500;
             margin-top: 1.5rem;
         }
+
+        .band-amber .actions { margin-top: 1.25rem; }
+        .band-amber .plain-link { border-bottom-color: rgba(36, 27, 20, 0.35); }
+        .band-amber .plain-link:hover { border-bottom-color: var(--ink); }
 
         /* Figure panel inside the amber band */
         figure.result {
@@ -322,7 +342,9 @@
             border-top: 1px solid var(--rule);
         }
 
-        .paper:last-of-type { border-bottom: 1px solid var(--rule); }
+        /* close each list of papers with a bottom rule */
+        .paper:has(+ :not(.paper)),
+        .paper:last-child { border-bottom: 1px solid var(--rule); }
 
         .paper h3 {
             font-size: clamp(1.05rem, 1rem + 0.35vw, 1.25rem);
@@ -340,6 +362,52 @@
             color: var(--muted);
             max-width: var(--measure);
         }
+
+        /* ---------- Abstract toggles ---------- */
+
+        details.abstract {
+            grid-column: 1 / -1;   /* span the full width of the .paper grid */
+            margin-top: 0.5rem;
+        }
+
+        details.abstract summary {
+            list-style: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-family: 'Archivo', system-ui, sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--muted);
+            padding-bottom: 2px;
+            border-bottom: 1.5px solid var(--rule);
+            transition: color 0.25s ease, border-color 0.25s ease;
+        }
+
+        details.abstract summary::-webkit-details-marker { display: none; }
+        details.abstract summary::after { content: '+'; font-weight: 600; }
+        details.abstract[open] summary::after { content: '\2212'; }  /* minus sign */
+
+        details.abstract summary:hover {
+            color: var(--ink);
+            border-bottom-color: var(--persimmon);
+        }
+
+        details.abstract summary:focus-visible {
+            outline: 2px solid var(--persimmon);
+            outline-offset: 3px;
+        }
+
+        details.abstract p {
+            margin-top: 1rem;
+            max-width: var(--measure);
+        }
+
+        /* darker label on the amber JMP band */
+        .band-amber details.abstract { margin-top: 1.25rem; }
+        .band-amber details.abstract summary { color: var(--ink); border-bottom-color: rgba(36, 27, 20, 0.35); }
+        .band-amber details.abstract summary:hover { border-bottom-color: var(--ink); }
 
         /* ---------- Teaching ---------- */
 
@@ -469,7 +537,6 @@
             <a class="mark" href="#top">Sean Callahan</a>
             <nav>
                 <a href="#research">Research</a>
-                <a href="#papers">Papers</a>
                 <a href="#teaching">Teaching</a>
                 <a href="#contact">Contact</a>
             </nav>
@@ -482,62 +549,60 @@
         <h1>Sean Callahan</h1>
         <p class="role">Economics PhD candidate, Colorado State University</p>
         <p class="lede">
-            I study how fiscal shocks travel through production networks &mdash; why a
-            contraction in one country&ndash;sector shows up as lost employment in another,
-            and what that implies for how fiscal policy is designed and coordinated.
+            My research investigates how the structure of an economy shapes what policy can do and
+            how policy can reshape that structure. I study how far fiscal shocks travel in production networks
+            and argue that where fiscal policy lands, not just how much is spent, matters for aggregate outcomes.
+            This dovetails with my modeling of how industrial policies, like Sweden's solidaristic wage policy, can
+            induce structural change while compressing wage inequality.
         </p>
         <p class="actions">
-            <a class="btn" href="#papers">Read the job market paper</a>
+            <a class="btn" href="#research">Read the job market paper</a>
             <a class="plain-link" href="Sean-Callahan-CV.pdf" target="_blank" rel="noopener">Curriculum vitae (PDF)</a>
         </p>
         </div>
         <img src="headshot.jpeg" alt="Sean Callahan" class="portrait">
     </header>
 
-    <section class="band" id="research">
+    <section class="band band-heading" id="research">
         <div class="wrap">
             <h2 class="section-title">Research</h2>
-
-            <div class="entry">
-                <h3>Fiscal transmission in production networks</h3>
-                <p>
-                    Using FIGARO inter-country tables and a network granular IV design, I
-                    estimate how fiscal shocks propagate through European input&ndash;output
-                    structure. Consolidation travels powerfully backward along demand linkages
-                    into employment, but only weakly forward into prices &mdash; which puts
-                    quantitative discipline on where aggregate fiscal risk sits.
-                </p>
-            </div>
-
-            <div class="entry">
-                <h3>Structural transformation and the state</h3>
-                <p>
-                    How the industrial composition of an economy evolves, and how policy steers
-                    it. This work treats network position as an instrument: which industries are
-                    systemically significant, and how institutional capacity and public ownership
-                    decide whether a shock is transmitted or absorbed.
-                </p>
-            </div>
-
-            <!--
-            <div class="entry">
-                <h3>Macroeconomics of the green transition</h3>
-                <p>
-                    Demand-driven models and simulation of how economies can sustain employment
-                    and growth through the energy transition, with attention to capacity
-                    investment and the distributional consequences of climate policy.
-                </p>
-            </div>
-            -->
         </div>
     </section>
 
-    <section class="band band-amber" id="papers">
-        <div class="wrap jmp-layout">
+    <section class="band band-amber">
+        <div class="wrap">
+            <div class="jmp-layout">
             <div>
                 <p class="jmp-kicker">Job market paper</p>
-                <h2 class="jmp-title">Fiscal Transmission in Production Networks</h2>
+                <h2 class="jmp-title">Production Networks, Transmission, and Policy</h2>
                 <p class="jmp-meta">Sean Callahan, 2026</p>
+                <p class="actions">
+                    <a class="plain-link" href="Production_Networks__Transmission__and_Policy.pdf" target="_blank" rel="noopener">Download</a>
+                </p>
+                <details class="abstract">
+                    <summary>Abstract</summary>
+                    <p>How far do fiscal shocks travel through a production network? I answer
+                        this question for the euro area by applying the network granular instrumental
+                        variable (N-GIV) approach of Chodorow-Reich et al. (2026) to FIGARO inter-country
+                        input-output tables covering 1,178 country-sectors over the period
+                        2010&ndash;2019. The method identifies two reduced-form propagation parameters:
+                        the share of a shock transmitted upstream from customers to suppliers
+                        (the demand channel) and the share transmitted downstream from suppliers
+                        to customers (the supply channel). I develop a static production network
+                        model with monopolistic competition and constant returns, that predicts an
+                        asymmetric response: quantities respond to demand shocks only through the
+                        demand channel, while prices respond to cost shocks only through the supply
+                        channel. I then test the model empirically, confirming these results. Each link
+                        in the network passes on 41 percent of a demand shock to employment and
+                        32 percent to gross output, while 40 percent of a cost shock passes through
+                        to relative prices; the cross-channel parameters are statistically indistinguishable
+                        from zero. The implied propagation multipliers show that 17 percent
+                        of the employment response and 12 percent of the gross output response to
+                        government spending arise from network transmission beyond the sector where
+                        the spending lands first. Intuitively, sectors that are further away through
+                        the network see almost no effect from the shock, implying that the sectoral
+                        composition of fiscal policy matters for its aggregate effects.</p>
+                </details>
             </div>
 
             <figure class="result">
@@ -553,24 +618,47 @@
                     One sentence stating the finding the plot shows, not the axes.
                 </figcaption>
             </figure>
+            </div>
         </div>
     </section>
 
     <section class="band">
         <div class="wrap">
-            <h2 class="section-title">Working papers</h2>
+            <h2 class="section-title" id="papers">Working papers</h2>
+
+            <div class="paper">
+                <h3>Structural Change by Solidarity: A Model of the Rehn&ndash;Meidner Plan</h3>
+                <p class="meta">Sean Callahan, 2026</p>
+                <details class="abstract">
+                    <summary>Abstract</summary>
+                    <p>I develop a theoretical model of the <em>solidaristic wage policy</em> (SWP) at the core of Sweden's
+                       Rehn&ndash;Meidner Plan, which used centralized bargaining to set equal pay for equal work independent of
+                       firm profitability. In a two-firm economy where each firm operates its own distribution of capital vintages,
+                       capacity utilization is determined by which vintages are profitable to run at the prevailing wage.
+                       The SWP lowers the capacity utilization of the low-productivity firm, while raising
+                       utilization for the high-productivity firm. The policy compresses wages, squeezes profits at the
+                       laggard firm while generating excess profits for the leader, and raises aggregate productivity through
+                       technological upgrading or exit.</p>
+                </details>
+            </div>
+
+            <div class="paper">
+                <h3>The Rehn&ndash;Meidner Plan: An Experiment in Social Developmentalism</h3>
+                <p class="meta">Sean Callahan, 2026</p>
+                <details class="abstract">
+                    <summary>Abstract</summary>
+                    <p>Coming soon.</p>
+                </details>
+            </div>
+
+            <h2 class="section-title">Works in progress</h2>
 
             <div class="paper">
                 <h3>A New Keynesian Model of Fiscal Transmission in Production Networks</h3>
                 <p class="meta">Sean Callahan, 2026</p>
             </div>
 
-            <div class="paper">
-                <h3>Structural Change by Solidarity: A Model of the Rehn&ndash;Meidner Plan</h3>
-                <p class="meta">Sean Callahan, 2026</p>
-            </div>
-
-            <p class="note">Drafts are available on request &mdash; please get in touch.</p>
+            <p class="note">Drafts are available on request.</p>
         </div>
     </section>
 
