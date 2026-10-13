@@ -267,10 +267,19 @@
 
         .jmp-layout {
             display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: clamp(1.5rem, 3vw, 2.25rem);
+            align-items: start;
+            }
+
+        /* Two-column version, for when the headline figure comes back:
+        .jmp-layout {
+            display: grid;
             grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
             gap: clamp(2rem, 5vw, 4rem);
             align-items: start;
         }
+        */
 
         .jmp-kicker {
             font-family: 'Archivo', system-ui, sans-serif;
@@ -283,7 +292,7 @@
             font-size: clamp(1.9rem, 1.4rem + 3vw, 3.4rem);
             font-weight: 700;
             letter-spacing: -0.035em;
-            max-width: 18ch;
+            /*max-width: 18ch;*/
         }
 
         .jmp-meta {
@@ -558,7 +567,7 @@
         </p>
         <p class="actions">
             <a class="btn" href="Production_Networks__Transmission__and_Policy.pdf" target="_blank" rel="noopener">Read the job market paper</a>
-            <a class="plain-link" href="Sean-Callahan-CV.pdf" target="_blank" rel="noopener">Curriculum vitae (PDF)</a>
+            <a class="plain-link" href="CallahanSean_CV.pdf" target="_blank" rel="noopener">Curriculum vitae (PDF)</a>
         </p>
         </div>
         <img src="headshot.jpeg" alt="Sean Callahan" class="portrait">
@@ -581,12 +590,12 @@
                     <a class="plain-link" href="Production_Networks__Transmission__and_Policy.pdf" target="_blank" rel="noopener">Download</a>
                 </p>
             </div>
-
+            <!--
             <figure class="result">
-                <!--
+                <!-
                 Swap the placeholder below for the real figure:
                 <img src="figures/jmp-headline.svg" alt="Describe the result the plot shows, in one sentence.">
-                -->
+                --
                 <div class="figure-placeholder">
                     <span>Headline figure</span>
                     <span>figures/jmp-headline.svg</span>
@@ -595,6 +604,7 @@
                     One sentence stating the finding the plot shows, not the axes.
                 </figcaption>
             </figure>
+            -->
 
             <details class="abstract">
                 <summary>Abstract</summary>
